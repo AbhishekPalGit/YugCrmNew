@@ -9,7 +9,7 @@ export const Frontconstants ={
         delApiName: "deleteCompany",
         addApiName: "addCompany"
     },
-    "site": {
+    "site":{
         getApiUrl: curUrl + 'site/getSiteList',
         addApiUrl: curUrl + 'site/addSite',
         delApiUrl: curUrl + 'site/deleteSite',
@@ -63,6 +63,46 @@ export const Frontconstants ={
     "Confirmcart":{
       getApiUrl: curUrl + 'product/confirmCart',
       getApiName: "confirmCart",
+    },
+    'cardNames' : {
+      // "SS": {
+      //     'pending' : 'Pending Carts',
+      //     'approved' : 'Approved Carts',
+      //     'rejected' : 'Rejected Carts',
+      //     'submitted' : 'Submitted Carts',
+      // },
+      // "PM": {
+      //     'pending_tasks' : 'Pending Carts',
+      //     'rejected_carts' : 'Rejected Carts',
+      //     'pending_orders' : 'Pending Orders',
+      //     'approved_orders' : 'Approved Orders',
+      //     'rejected_orders' : 'Rejected Orders',
+      // },
+      // "HO": {
+      //     'pending' : 'Pending Orders',
+      //     'approved' : 'Approved Orders',
+      //     'rejected' : 'Rejected Orders',
+      // },
+      ADM: {
+          'ccname' : 'Company Name',
+          "siteName": "Site Name",
+          "companyName": "Company Name",
+          'isactive' : 'Active Status',
+          "name": "User Name",
+          "email": "EmailId",
+          "mobileno": "Mobile No.",
+          "roleName": "Role Name",
+          "userActive": 'Active Status',
+          "SiteName": "Site Name",
+          "brand": "Brand", 
+          // "ccid": "Company Id", 
+          "gstext": "GST", 
+          "hsncode": "HSN Code", 
+          "image": "Image", 
+          "pid": "Product Id", 
+          "productdesc": "Item Description", 
+          "productname": "Item Name", 
+      },
     }
 }
 
@@ -204,7 +244,6 @@ export const InputObj = {
           id: "Img",
         },
       ]
-      
   };
 
 export const UserMenus ={
@@ -215,24 +254,25 @@ export const UserMenus ={
         HO:["Home"],
 }
 
-export const RoleConstant =[{
-  'roleName' : 'Super Admin',
-  'roleId' : 1,
-},
-{
-  'roleName' : 'Admin',
-  'roleId' : 2,
-},
-{
-  'roleName' : 'Head Office',
-  'roleId' : 5,
-},
-{
-  'roleName' : 'Purchase Manager',
-  'roleId' : 3,
-},
-{
-  'roleName' : 'Site Supervisor',
-  'roleId' : 4,
-}
+export const RoleConstant =[
+  {
+    'roleName' : 'Super Admin',
+    'roleId' : 1,
+  },
+  {
+    'roleName' : 'Admin',
+    'roleId' : 2,
+  },
+  {
+    'roleName' : 'Head Office',
+    'roleId' : 5,
+  },
+  {
+    'roleName' : 'Purchase Manager',
+    'roleId' : 3,
+  },
+  {
+    'roleName' : 'Site Supervisor',
+    'roleId' : 4,
+  }
 ]

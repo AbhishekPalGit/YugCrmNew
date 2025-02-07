@@ -28,8 +28,6 @@ exports.getProductList = async (req, res) => {
         } else if (body.api_name == "" || body.api_name == undefined || body.api_name != "getProductList") {
             result.message = 'Invlaid API';
         } else {
-
-            console.log("request.===>>>>>", req.protocol + '://' + req.get('host'));
             var siteDet = await productModel.getProductList(body);
             if (siteDet.status == "success") {
                 if (siteDet.data.length > 0) {

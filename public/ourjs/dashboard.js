@@ -1,8 +1,6 @@
 import Apicall from "./Apicall.js";
 import { AddModal } from "./AddModal.js";
-import { Frontconstants } from "./Frontconstants.js";
-import { InputObj } from "./Frontconstants.js";
-import { UserMenus } from "./Frontconstants.js";
+import { Frontconstants, InputObj, UserMenus } from "./Frontconstants.js";
 import {getSiteSuperData} from "./SiteSupervisor.js"
 import { saveCart } from "./SiteSupervisor.js";
 import {getPMData} from "./ProductManager.js";
@@ -38,8 +36,8 @@ export async function setActiveTab(data , i){
     localStorage.setItem("ActiveTabIndex", i)
  
 
-    Addbutton.innerHTML = `<i class="fa-solid fa-plus"></i>${data}`;
-    dashboardHeading.innerHTML = `${data}`;
+    Addbutton.innerHTML = `<i class="fa-solid fa-plus"></i>Add ${data}`;
+    dashboardHeading.innerHTML = `${data} List`;
     ActiveTab = data;
     let SideMenuTabs = document.querySelectorAll(".sidebar-list");
     SideMenuTabs.forEach(tab => {
@@ -78,7 +76,7 @@ async function getMenulist() {
           <svg class="stroke-icon">
             <use href="../assets/svg/iconly-sprite.svg#Paper"></use>
           </svg>
-          <h6 class="f-w-600">${data}</h6>
+          <h6 class="f-w-600 upperCaseLbl">${data}</h6>
         </a>
       </li>`
     ).join('')
@@ -126,7 +124,7 @@ Addbutton.addEventListener("click", () => {
   const mainWrapper = document.getElementById("mainWrapper");
   document.querySelectorAll(".modal").forEach((modal) => modal.remove());
   let webloader = document.querySelector('.loader-wrapper');
-  if (webloader && ActiveTab != "company") {
+  if (webloader) {
     webloader.style.display = "flex"; // Show loader
   }
   mainWrapper.innerHTML += addPopup;
@@ -178,9 +176,12 @@ async function getProduct(tabName) {
       //                       </div>
       //                     </th>`;
       colArr.map((data) => {
-        tableCol.innerHTML += `
-                <th> <span class="f-light f-w-600">${data}</span></th>
+        var collName = Frontconstants['cardNames'][localStorage.getItem("UserSpec")][data];
+        if (collName != undefined) {
+          tableCol.innerHTML += `
+                <th> <span class="f-light f-w-600">${collName}</span></th>
             `;
+        }
       });
       tableCol.innerHTML += `
                 <th> <span class="f-light f-w-600">Action</span></th>
@@ -207,10 +208,9 @@ async function getProduct(tabName) {
           <svg class="EditItem" tabName=${tabName}>
             <use href="../assets/svg/icon-sprite.svg#edit-content"></use>
           </svg>
-          ${ `<svg class="deleteItem" tabName=${tabName}>
+          <svg class="deleteItem" tabName=${tabName}>
             <use href="../assets/svg/icon-sprite.svg#trash1"></use>
-          </svg>`}
-         
+          </svg>
         </div>
       </td>
     </tr>

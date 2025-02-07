@@ -774,17 +774,13 @@ export async function callApproveCart(data, type){
         payload
       );
       console.log("Response company:", Apidata);
-      let webloader = document.querySelector('.loader-wrapper');
-    if (webloader ) {
-      webloader.style.display = "flex"; // Show loader
-    }
       if (Apidata["status"] === "success") {
-        // alert(`data ${type} succesfully`)
+        alert(`data ${type} succesfully`)
     let pageBody = document.querySelector(".appendCart");
     pageBody.innerHTML= `data ${type} succesfully`
-    
+    setTimeout(() => {
         location.reload();
-   
+      }, 600);
         return true
       }
     } catch (error) {

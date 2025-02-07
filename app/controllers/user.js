@@ -47,13 +47,12 @@ exports.getUserList = async (req, res) => {
                         if (!userMap[user.usrId]) {
                             userMap[user.usrId] = {
                                 "usrId": user.usrId,
-                                "fname": user.fname,
-                                "lname": user.lname,
+                                "name": user.fname + ' ' + user.lname,
                                 "email": user.email,
                                 "mobileno": user.mobileno,
-                                "roleId": user.roleId,
+                                // "roleId": user.roleId,
                                 "roleName": user.roleName,
-                                "companyId": user.companyId,
+                                // "companyId": user.companyId,
                                 "companyName": user.companyName,
                                 "userActive": user.userActive,
                                 "sites": []
@@ -66,7 +65,7 @@ exports.getUserList = async (req, res) => {
                     });
 
                     var userDet = Object.values(userMap);
-                    userDet.sort((a, b) => a.fname.localeCompare(b.fname));
+                    userDet.sort((a, b) => a.name.localeCompare(b.name));
                     userDet.forEach(user => {
                         user.SiteName = user.sites.map(site => site.siteName).join(", ");
                         delete user.sites;

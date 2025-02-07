@@ -3,7 +3,6 @@ import { RoleConstant } from "./Frontconstants.js";
 import Apicall from "./Apicall.js"
 export const AddModal =(inputArr, tabName)=>{ 
   console.log("inputtARr",inputArr)
-  
   const inputFields = inputArr.map((input) => {
     return `
       ${input.type !== "dropdown" ? `<div class="col-md-12">
