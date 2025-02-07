@@ -1,0 +1,516 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="description"
+    content="" />
+  <meta name="keywords"
+    content="" />
+  <meta name="author" content="" />
+  <title>Dashboard - Chachret.com</title>
+  <!-- Favicon icon-->
+  <link rel="icon" href="../assets/images/favicon.ico" type="image/x-icon" />
+  <link rel="shortcut icon" href="../assets/images/favicon.ico" type="image/x-icon" />
+  <!-- Google font-->
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin="" />
+  <link
+    href="https://fonts.googleapis.com/css2?family=Nunito+Sans:opsz,wght@6..12,200;6..12,300;6..12,400;6..12,500;6..12,600;6..12,700;6..12,800;6..12,900;6..12,1000&amp;display=swap"
+    rel="stylesheet" />
+  <!-- Flag icon css -->
+  <link rel="stylesheet" href="../assets/css/vendors/flag-icon.css" />
+  <!-- iconly-icon-->
+  <link rel="stylesheet" href="../assets/css/iconly-icon.css" />
+  <link rel="stylesheet" href="../assets/css/bulk-style.css" />
+  <!-- iconly-icon-->
+  <link rel="stylesheet" href="../assets/css/themify.css" />
+  <!--fontawesome-->
+  <link rel="stylesheet" href="../assets/css/fontawesome-min.css" />
+  <!-- Whether Icon css-->
+  <link rel="stylesheet" type="text/css" href="../assets/css/vendors/weather-icons/weather-icons.min.css" />
+  <link rel="stylesheet" type="text/css" href="../assets/css/vendors/scrollbar.css" />
+  <link rel="stylesheet" type="text/css" href="../assets/css/vendors/simple-datatables/dist/style.css" />
+  <link rel="stylesheet" type="text/css" href="../assets/css/vendors/slick.css" />
+  <link rel="stylesheet" type="text/css" href="../assets/css/vendors/slick-theme.css" />
+  <!-- App css -->
+  <link rel="stylesheet" href="../assets/css/style.css" />
+  <link id="color" rel="stylesheet" href="../assets/css/color-1.css" media="screen" />
+</head>
+
+<body>
+  <!-- page-wrapper Start-->
+  <!-- tap on top starts-->
+  <div class="tap-top"><i class="iconly-Arrow-Up icli"></i></div>
+  <!-- tap on tap ends-->
+  <!-- loader-->
+  <div class="loader-wrapper" style="display: flex;">
+    <div class="loader"><span></span><span></span><span></span><span></span><span></span></div>
+  </div>
+  <div class="page-wrapper compact-wrapper" id="pageWrapper">
+    <header class="page-header row">
+      <div class="logo-wrapper d-flex align-items-center col-auto"><a href="index.html"><img
+            class="light-logo img-fluid" src="../assets/css/images/crmlogo.jpeg" alt="logo" style="max-width: 30%;" /><img
+            class="dark-logo img-fluid" src="../assets/css/images/crmlogo.jpeg" alt="logo" /></a>
+            <a id="burgerMenu"
+          class="close-btn toggle-sidebar" href="javascript:void(0)">
+          <svg class="svg-color">
+            <use href="../assets/svg/iconly-sprite.svg#Category"></use>
+          </svg></a></div>
+      <div class="page-main-header col">
+        <div class="header-left">
+          <form class="form-inline search-full col" action="#" method="get">
+            <div class="form-group w-100">
+              <div class="Typeahead Typeahead--twitterUsers">
+                <div class="u-posRelative">
+                  <input class="demo-input Typeahead-input form-control-plaintext w-100" type="text"
+                    placeholder="Search Admiro .." name="q" title="" autofocus="autofocus" />
+                  <div class="spinner-border Typeahead-spinner" role="status"><span class="sr-only">Loading...</span>
+                  </div><i class="close-search" data-feather="x"></i>
+                </div>
+                <div class="Typeahead-menu"></div>
+              </div>
+            </div>
+          </form>
+          <!-- <div class="form-group-header d-lg-block d-none">
+            <div class="Typeahead Typeahead--twitterUsers">
+              <div class="u-posRelative d-flex align-items-center">
+                <input class="demo-input py-0 Typeahead-input form-control-plaintext w-100" type="text"
+                  placeholder="Type to Search..." name="q" title="" /><i class="search-bg iconly-Search icli"></i>
+              </div>
+            </div>
+          </div> -->
+        </div>
+        <div class="nav-right">
+          <ul class="header-right">
+            <li class="custom-dropdown">
+              <div class="translate_wrapper">
+                
+                <ul class="custom-menu profile-menu language-menu py-0 more_lang">
+                  <li class="d-block"><a class="lang" href="#" data-value="English"><i
+                        class="flag-icon flag-icon-us"></i>
+                      <div class="lang-txt">English</div>
+                    </a></li>
+                  <li class="d-block"><a class="lang" href="#" data-value="fr"><i class="flag-icon flag-icon-fr"></i>
+                      <div class="lang-txt">Français</div>
+                    </a></li>
+                  <li class="d-block"><a class="lang" href="#" data-value="es"><i class="flag-icon flag-icon-es"></i>
+                      <div class="lang-txt">Español</div>
+                    </a></li>
+                </ul>
+              </div>
+            </li>
+            <li class="search d-lg-none d-flex"> <a href="javascript:void(0)">
+                <svg>
+                  <use href="../assets/svg/iconly-sprite.svg#Search"></use>
+                </svg></a></li>
+            <li> <a class="dark-mode" href="javascript:void(0)">
+                <svg>
+                  <use href="../assets/svg/iconly-sprite.svg#moondark"></use>
+                </svg></a></li>
+            <li class="custom-dropdown" id="gotocart">
+              <a href="javascript:void(0)">
+                <svg>
+                  <use href="../assets/svg/iconly-sprite.svg#cart-icon"></use>
+                </svg></a><span class="badge rounded-pill badge-primary" id="cartBadge">0</span>
+              <!-- <div class="custom-menu cart-dropdown py-0 overflow-hidden">
+                <h3 class="title dropdown-title">Cart</h3>
+                <ul class="pb-0">
+                  <li>
+                    <div class="d-flex"><img class="img-fluid b-r-5 me-3 img-60"
+                        src="../assets/images/dashboard-2/1.png" alt="" />
+                      <div class="flex-grow-1"><span class="f-w-600">Watch multicolor</span>
+                        <div class="qty-box">
+                          <div class="input-group"><span class="input-group-prepend">
+                              <button class="btn quantity-left-minus" type="button" data-type="minus"
+                                data-field="">-</button></span>
+                            <input class="form-control input-number" type="text" name="quantity" value="1" /><span
+                              class="input-group-prepend">
+                              <button class="btn quantity-right-plus" type="button" data-type="plus"
+                                data-field="">+</button></span>
+                          </div>
+                        </div>
+                        <h6 class="font-primary">$500</h6>
+                      </div>
+                      <div class="close-circle"><a class="bg-danger" href="#"><i data-feather="x"></i></a></div>
+                    </div>
+                  </li>
+                  <li>
+                    <div class="d-flex"><img class="img-fluid b-r-5 me-3 img-60"
+                        src="../assets/images/dashboard-2/2.png" alt="" />
+                      <div class="flex-grow-1"><span class="f-w-600">Airpods</span>
+                        <div class="qty-box">
+                          <div class="input-group"><span class="input-group-prepend">
+                              <button class="btn quantity-left-minus" type="button" data-type="minus"
+                                data-field="">-</button></span>
+                            <input class="form-control input-number" type="text" name="quantity" value="1" /><span
+                              class="input-group-prepend">
+                              <button class="btn quantity-right-plus" type="button" data-type="plus"
+                                data-field="">+</button></span>
+                          </div>
+                        </div>
+                        <h6 class="font-primary">$500.00</h6>
+                      </div>
+                      <div class="close-circle"><a class="bg-danger" href="#"><i data-feather="x"></i></a></div>
+                    </div>
+                  </li>
+                  <li class="total">
+                    <h6 class="mb-0">Order Total : <span class="f-w-600">$1000.00</span></h6>
+                  </li>
+                  <li class="text-center"><a class="d-block mb-3 view-cart f-w-700 text-primary" href="cart.html">Go to
+                      your cart</a><a class="btn btn-primary view-checkout text-white" href="checkout.html">Checkout</a>
+                  </li>
+                </ul>
+              </div> -->
+            </li>
+            <!-- <li class="custom-dropdown"><a href="javascript:void(0)">
+                <svg>
+                  <use href="../assets/svg/iconly-sprite.svg#notification"></use>
+                </svg></a><span class="badge rounded-pill badge-primary">4</span>
+              <div class="custom-menu notification-dropdown py-0 overflow-hidden">
+                <h3 class="title bg-primary-light dropdown-title">Notification <span class="font-primary">View
+                    all</span></h3>
+                <ul class="activity-timeline">
+                  <li class="d-flex align-items-start">
+                    <div class="activity-line"></div>
+                    <div class="activity-dot-primary"></div>
+                    <div class="flex-grow-1">
+                      <h6 class="f-w-600 font-primary">30-04-2024<span>Today</span><span
+                          class="circle-dot-primary float-end">
+                          <svg class="circle-color">
+                            <use href="../assets/svg/iconly-sprite.svg#circle"></use>
+                          </svg></span></h6>
+                      <h5>Alice Goodwin</h5>
+                      <p class="mb-0">Fashion should be fun. It shouldn't be labelled intellectual.</p>
+                    </div>
+                  </li>
+                  <li class="d-flex align-items-start">
+                    <div class="activity-dot-secondary"></div>
+                    <div class="flex-grow-1">
+                      <h6 class="f-w-600 font-secondary">28-06-2024<span>1 hour ago</span><span
+                          class="float-end circle-dot-secondary">
+                          <svg class="circle-color">
+                            <use href="../assets/svg/iconly-sprite.svg#circle"></use>
+                          </svg></span></h6>
+                      <h5>Herry Venter</h5>
+                      <p>I am convinced that there can be luxury in simplicity.</p>
+                    </div>
+                  </li>
+                  <li class="d-flex align-items-start">
+                    <div class="activity-dot-primary"></div>
+                    <div class="flex-grow-1">
+                      <h6 class="f-w-600 font-primary">04-08-2024<span>Today</span><span
+                          class="float-end circle-dot-primary">
+                          <svg class="circle-color">
+                            <use href="../assets/svg/iconly-sprite.svg#circle"></use>
+                          </svg></span></h6>
+                      <h5>Loain Deo</h5>
+                      <p>I feel that things happen for open new opportunities.</p>
+                    </div>
+                  </li>
+                  <li class="d-flex align-items-start">
+                    <div class="activity-dot-secondary"></div>
+                    <div class="flex-grow-1">
+                      <h6 class="f-w-600 font-secondary">12-11-2024<span>Yesterday</span><span
+                          class="float-end circle-dot-secondary">
+                          <svg class="circle-color">
+                            <use href="../assets/svg/iconly-sprite.svg#circle"></use>
+                          </svg></span></h6>
+                      <h5>Fenter Jessy</h5>
+                      <p>Sometimes the simplest things are the most profound.</p>
+                    </div>
+                  </li>
+                </ul>
+              </div>
+            </li> -->
+         
+            <!-- <li class="custom-dropdown"><a href="javascript:void(0)">
+                <svg>
+                  <use href="../assets/svg/iconly-sprite.svg#bookmark"></use>
+                </svg></a>
+              <div class="custom-menu bookmark-dropdown py-0 overflow-hidden">
+                <h3 class="title bg-primary-light dropdown-title">Bookmark</h3>
+                <ul>
+                  <li>
+                    <form class="mb-0">
+                      <div class="input-group">
+                        <input class="form-control" type="text" placeholder="Search Bookmark..." /><span
+                          class="input-group-text">
+                          <svg class="svg-color">
+                            <use href="../assets/svg/iconly-sprite.svg#Search"></use>
+                          </svg></span>
+                      </div>
+                    </form>
+                  </li>
+                  <li class="d-flex align-items-center">
+                    <div class="flex-shrink-0 me-2 btn-activity-primary"><a href="index.html">
+                        <svg class="svg-color">
+                          <use href="../assets/svg/iconly-sprite.svg#cube"></use>
+                        </svg></a></div>
+                    <div class="d-flex justify-content-between align-items-center w-100"><a
+                        href="index.html">Dashboard</a>
+                      <svg class="svg-color icon-star">
+                        <use href="../assets/svg/iconly-sprite.svg#star"></use>
+                      </svg>
+                    </div>
+                  </li>
+                  <li class="d-flex align-items-center">
+                    <div class="flex-shrink-0 me-2 btn-activity-secondary"><a href="to-do.html">
+                        <svg class="svg-color">
+                          <use href="../assets/svg/iconly-sprite.svg#check"></use>
+                        </svg></a></div>
+                    <div class="d-flex justify-content-between align-items-center w-100"><a href="to-do.html">To-do</a>
+                      <svg class="svg-color icon-star">
+                        <use href="../assets/svg/iconly-sprite.svg#star"></use>
+                      </svg>
+                    </div>
+                  </li>
+                  <li class="d-flex align-items-center">
+                    <div class="flex-shrink-0 me-2 btn-activity-danger"><a href="apex_chart.html">
+                        <svg class="svg-color">
+                          <use href="../assets/svg/iconly-sprite.svg#pie"></use>
+                        </svg></a></div>
+                    <div class="d-flex justify-content-between align-items-center w-100"><a
+                        href="apex_chart.html">Chart</a>
+                      <svg class="svg-color icon-star">
+                        <use href="../assets/svg/iconly-sprite.svg#star"></use>
+                      </svg>
+                    </div>
+                  </li>
+                </ul>
+              </div>
+            </li> -->
+           
+            <li class="profile-nav custom-dropdown">
+              <div class="user-wrap">
+                <div class="user-img"><img src="../assets/images/profile.png" alt="user" /></div>
+                <div class="user-content">
+                  <h6>Ava Davis</h6>
+                  <p class="mb-0">Admin<i class="fa-solid fa-chevron-down"></i></p>
+                </div>
+              </div>
+              <div class="custom-menu overflow-hidden">
+                <ul class="profile-body">
+                  <!-- <li class="d-flex">
+                    <svg class="svg-color">
+                      <use href="../assets/svg/iconly-sprite.svg#Profile"></use>
+                    </svg><a class="ms-2" href="user-profile.html">Account</a>
+                  </li>
+                  <li class="d-flex">
+                    <svg class="svg-color">
+                      <use href="../assets/svg/iconly-sprite.svg#Message"></use>
+                    </svg><a class="ms-2" href="letter-box.html">Inbox</a>
+                  </li>
+                  <li class="d-flex">
+                    <svg class="svg-color">
+                      <use href="../assets/svg/iconly-sprite.svg#Document"></use>
+                    </svg><a class="ms-2" href="to-do.html">Task</a>
+                  </li> -->
+                  <li class="d-flex">
+                    <svg class="svg-color">
+                      <use href="../assets/svg/iconly-sprite.svg#Login"></use>
+                    </svg><a class="ms-2" id="LogoutUser">Log Out</a>
+                  </li>
+                </ul>
+              </div>
+            </li>
+          </ul>
+        </div>
+      </div>
+    </header>
+    <!-- Page Body Start-->
+    <div class="page-body-wrapper" id="mainWrapper">
+      <!-- Page sidebar start-->
+      <aside class="page-sidebar">
+        <div class="left-arrow" id="left-arrow"><i data-feather="arrow-left"></i></div>
+        <div class="main-sidebar" id="main-sidebar">
+          <ul class="sidebar-menu" id="simple-bar">
+            <li class="pin-title sidebar-main-title">
+              <div>
+                <h5 class="sidebar-title f-w-700">Pinned</h5>
+              </div>
+            </li>
+            <li class="sidebar-main-title">
+              <div>
+                <h5 class="f-w-700 sidebar-title pt-3">Application</h5>
+              </div>
+            </li>
+            <div id="MainMenuSideBar">
+            </div>
+            
+
+
+          </ul>
+        </div>
+        <div class="right-arrow" id="right-arrow"><i data-feather="arrow-right"></i></div>
+      </aside>
+      <!-- Page sidebar end-->
+      <div class="page-body">
+        <div class="container-fluid">
+          <div class="page-title">
+            <div class="row">
+              <div class="col-sm-6 col-12">
+                <h2 id="dashHead">Product list</h2>
+              </div>
+              <!-- <div class="col-sm-6 col-12">
+                <ol class="breadcrumb">
+                  <li class="breadcrumb-item"><a href="index.html"><i class="iconly-Home icli svg-color"></i></a></li>
+                  <li class="breadcrumb-item">ECommerce</li>
+                  <li class="breadcrumb-item active">Product list</li>
+                </ol>
+              </div> -->
+            </div>
+          </div>
+        </div>
+        <!-- Container-fluid starts-->
+        <div class="container-fluid " id="WholeMainContent">
+
+        <div class="container-fluid" id="removeContainer">
+          <div class="row">
+            <div class="col-sm-12">
+              <div class="card">
+                <div class="card-body">
+                  <div class="list-product-header">
+                    <div>
+                     <a
+                        class="btn btn-primary" id="addButton"><i class="fa-solid fa-plus"></i>Add Product</a>
+                    </div>
+                    <div class="collapse" id="collapseProduct">
+                      <div class="card card-body list-product-body">
+                        <div class="row row-cols-xl-5 row-cols-lg-4 row-cols-md-3 row-cols-sm-2 row-cols-2 g-3">
+                          <div class="col">
+                            <select class="form-select" aria-label="Default select example">
+                              <option selected="">Choose Product</option>
+                              <option value="1">Apple iphone 13 Pro</option>
+                              <option value="2">Wood Chair</option>
+                              <option value="3">M185 Compact Wireless Mouse</option>
+                            </select>
+                          </div>
+                          <div class="col">
+                            <select class="form-select" aria-label="Default select example">
+                              <option selected="">Choose Category</option>
+                              <option value="1">Furniture</option>
+                              <option value="2">Smart Gadgets</option>
+                              <option value="3">Electrics</option>
+                            </select>
+                          </div>
+                          <div class="col">
+                            <select class="form-select" aria-label="Default select example">
+                              <option selected="">Choose Sub Category</option>
+                              <option value="1">Smart Phones</option>
+                              <option value="2">Smart Watches</option>
+                              <option value="3">Wireless headphone</option>
+                            </select>
+                          </div>
+                          <div class="col">
+                            <select class="form-select" aria-label="Default select example">
+                              <option selected="">Status</option>
+                              <option value="1">Sold Out </option>
+                              <option value="2">In Stock</option>
+                              <option value="3">Pre Order</option>
+                              <option value="4">Limited Stock </option>
+                            </select>
+                          </div>
+                          <div class="col">
+                            <select class="form-select" aria-label="Default select example">
+                              <option selected="">Price</option>
+                              <option value="1">56000.00</option>
+                              <option value="2">19000.00</option>
+                              <option value="3">10000.00</option>
+                              <option value="3">15000.00</option>
+                              <option value="3">99000.00</option>
+                            </select>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                  <div class="list-product" style="overflow-x: scroll;">
+                    <table class="table" id="project-status">
+                      <thead>
+                        <tr id="tab-col">
+                          <th >
+                            <div class="form-check">
+                              <input class="form-check-input checkbox-primary" type="checkbox" />
+                            </div>
+                          </th>
+                          <!-- ////appended columns from javscript -->
+                        </tr>
+                      </thead>
+                      <tbody id="product-removes">
+                        <tr class="product-removes" >
+                         
+                        </tr>
+                        
+                      </tbody>
+                    </table>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+        </div>
+      </div>
+
+      <!-- ///popup for Adding product -->
+      <footer class="footer">
+        <div class="container-fluid">
+          <div class="row">
+            <div class="col-md-6 footer-copyright">
+              <p class="mb-0">Powered By Yug Enterprise</p>
+            </div>
+            <div class="col-md-6">
+              <!-- <p class="float-end mb-0">Hand crafted &amp; made with
+                <svg class="svg-color footer-icon">
+                  <use href="../assets/svg/iconly-sprite.svg#heart"></use>
+                </svg>
+              </p> -->
+            </div>
+          </div>
+        </div>
+      </footer>
+    </div>
+  </div>
+  <!-- jquery-->
+  <script src="../assets/js/vendors/jquery/jquery.min.js"></script>
+  <!-- bootstrap js-->
+  <script src="../assets/js/vendors/bootstrap/dist/js/bootstrap.bundle.min.js" defer=""></script>
+  <script src="../assets/js/vendors/bootstrap/dist/js/popper.min.js" defer=""></script>
+  <!--fontawesome-->
+  <script src="../assets/js/vendors/font-awesome/fontawesome-min.js"></script>
+  <!-- feather-->
+  <script src="../assets/js/vendors/feather-icon/feather.min.js"></script>
+  <script src="../assets/js/vendors/feather-icon/custom-script.js"></script>
+  <!-- sidebar -->
+  <script src="../assets/js/sidebar.js"></script>
+  <!-- scrollbar-->
+  <script src="../assets/js/scrollbar/simplebar.js"></script>
+  <script src="../assets/js/scrollbar/custom.js"></script>
+  <!-- slick-->
+  <script src="../assets/js/slick/slick.min.js"></script>
+  <script src="../assets/js/slick/slick.js"></script>
+  <!-- datatables-->
+  <script src="../assets/js/js-datatables/simple-datatables@latest.js"></script>
+  <!-- custom_list_product-->
+  <script src="../assets/js/custom-list-product.js"></script>
+  <!-- theme_customizer-->
+  <script src="../assets/js/theme-customizer/customizer.js"></script>
+  <!-- custom script -->
+  <script src="../assets/js/vendors/jquery/jquery.min.js"></script>
+
+  <script src="../assets/js/touchspin/touchspin.js"></script>
+  <script src="../assets/js/touchspin/input-groups.min.js"></script>
+
+  <script src="../assets/js/script.js"></script>
+  <script type="module" src="../ourjs/dashboard.js"></script>
+
+
+  
+</body>
+
+</html>
+
+ 
