@@ -9,7 +9,7 @@ export const Frontconstants ={
         delApiName: "deleteCompany",
         addApiName: "addCompany"
     },
-    "site":{
+    "site": {
         getApiUrl: curUrl + 'site/getSiteList',
         addApiUrl: curUrl + 'site/addSite',
         delApiUrl: curUrl + 'site/deleteSite',
