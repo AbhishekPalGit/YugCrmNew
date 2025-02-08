@@ -753,12 +753,8 @@ export async function saveCart(tabName,type) {
     }
 }
 
-export async function callApproveCart(data, type){
-    let updatedCart = getUpdatedCartData();
-    updatedCart.splice(updatedCart.length -1 , 1)
-    updatedCart.map((data)=>{
-        delete data.Action
-    })
+export async function callApproveCart(data, type , updatedCart){
+
     console.log("updatedCart", updatedCart, data.items)
     let tabName = "approveCart"
     const payload = {
@@ -787,7 +783,7 @@ export async function callApproveCart(data, type){
       console.error("Error fetching company list:", error);
     }
 }
-window.viewSpecificCartPm = function (gotdata, index) {
+window.viewSpecificCartPm =async function (gotdata, index) {
     console.log("Viewing specific cart:", gotdata);
     let statusBtn = document.querySelectorAll(".viewSpecificCartPm");
   
@@ -901,7 +897,7 @@ window.viewSpecificCartPm = function (gotdata, index) {
 
     // Attach event listeners to newly added buttons
     document.querySelectorAll(".cartPageMinusPm1").forEach((btn) => {
-        btn.addEventListener("click", function () {
+        btn.addEventListener("click", async function () {
             let index = this.getAttribute("data-index");
             let inputField = document.querySelector(`.cartPageInputPm1[data-index="${index}"]`);
             let currentValue = parseInt(inputField.value) || 1;
@@ -939,7 +935,13 @@ window.viewSpecificCartPm = function (gotdata, index) {
         }
     
         if (event.target && event.target.id === "approveButton") {
-            concent(gotdata, "approve");
+          let updatedCart =  getUpdatedCartData();
+          console.log(updatedCart,"chbhbhbhbhfbf")
+          updatedCart.splice(updatedCart.length -1 , 1)
+          updatedCart.map((data)=>{
+              delete data.Action
+          })
+            concent(gotdata, "approve", updatedCart);
         }
     });
     }

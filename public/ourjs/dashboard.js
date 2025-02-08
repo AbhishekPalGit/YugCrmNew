@@ -124,7 +124,7 @@ Addbutton.addEventListener("click", () => {
   const mainWrapper = document.getElementById("mainWrapper");
   document.querySelectorAll(".modal").forEach((modal) => modal.remove());
   let webloader = document.querySelector('.loader-wrapper');
-  if (webloader) {
+  if (webloader && ActiveTab != "company") {
     webloader.style.display = "flex"; // Show loader
   }
   mainWrapper.innerHTML += addPopup;

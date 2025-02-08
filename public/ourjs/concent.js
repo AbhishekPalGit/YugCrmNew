@@ -1,6 +1,6 @@
 import {callApproveCart} from './ProductManager.js'
 import { deleteProduct } from './dashboard.js'
-export function concent(data, type){
+export function concent(data, type , updatedCart){
     
     let pageBody = document.querySelector('.page-body')
     pageBody.innerHTML += `<div class="modal fade show" id="consentPop" tabindex="-1" aria-labelledby="exampleModalCenter1" style="display: block;" aria-modal="true" role="dialog">
@@ -27,7 +27,8 @@ export function concent(data, type){
 let consentOk = document.getElementById("consentOk")
 consentOk.addEventListener('click',()=>{
     if(type == "reject" || type == "approve"){
-        callApproveCart(data,type)
+      console.log("getting updated cart", updatedCart)
+        callApproveCart(data,type, updatedCart)
     }else{
         deleteProduct(data, type);
     }

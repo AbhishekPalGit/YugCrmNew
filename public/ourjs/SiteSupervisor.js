@@ -165,6 +165,10 @@ function setcartDetail(data, i){
 }
 let ProductListHtml =(ProductData)=>{
     WholeMainContent.innerHTML = `<div class="product-wrapper">
+    
+    <div class="search-container" style="margin-bottom: 20px">
+        <input type="text" id="searchProduct" class="form-control" placeholder="Search products...">
+      </div>
   <div class="product-grid">
 
     <div class="product-wrapper-grid" style="opacity: 1;">
@@ -182,115 +186,121 @@ cartIcon2?.addEventListener('click',()=>{
   setActiveTab("Cart" , 2)
 })
 const productTray = document.getElementById('productTray')
-if(productTray){
-    console.log(ProductData,"dgchdgfhdgfhdgfhgdfd")
-    productTray.innerHTML = ProductData.map((data)=>(
-        `<div class="col-xl-2">
-  <div class="card">
-    <div class="product-box">
-      <div class="product-img"><img class="img-fluid" src=${data.imagelink} alt="">
-        <div class="product-hover">
-          <ul>
-            <li class="cartClick"><i class="icon-shopping-cart"></i></li>
-            <li>
-              <button class="btn" type="button" data-bs-toggle="modal" data-bs-target="#exampleModalCenter"><i class="icon-eye cartEye2"></i></button>
-            </li>
-          </ul>
-        </div>
-      </div>
-      <div class="modal fade" id="exampleModalCenter" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenter" aria-hidden="true">
-        <div class="modal-dialog modal-lg modal-dialog-centered" role="document">
-         <div class="modal-content" style="background-color:${localStorage.getItem("mode") == "light" ? "#cccccc":"black"}">
-            <div class="modal-header border-bottom-0">
-              <div class="product-box row">
-                <div class="product-img col-lg-6" id=proddetImg></div>
-                <div class="product-details col-lg-6 text-start">
-                    <h4 id="viewProddet">${data.productname}</h4>
-                  <div class="product-view">
-                    <h6 class="f-w-700" id="viewProddesc">${data.productdesc}</h6>
+const renderProducts = (filteredData) => {
+  productTray.innerHTML = filteredData.map((data)=>(
+    `<div class="col-xl-2">
+<div class="card">
+<div class="product-box">
+  <div class="product-img"><img class="img-fluid" src=${data.imagelink} alt="">
+    <div class="product-hover">
+      <ul>
+        <li class="cartClick"><i class="icon-shopping-cart"></i></li>
+        <li>
+          <button class="btn" type="button" data-bs-toggle="modal" data-bs-target="#exampleModalCenter"><i class="icon-eye cartEye2"></i></button>
+        </li>
+      </ul>
+    </div>
+  </div>
+  <div class="modal fade" id="exampleModalCenter" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenter" aria-hidden="true">
+    <div class="modal-dialog modal-lg modal-dialog-centered" role="document">
+     <div class="modal-content" style="background-color:${localStorage.getItem("mode") == "light" ? "#cccccc":"black"}">
+        <div class="modal-header border-bottom-0">
+          <div class="product-box row">
+            <div class="product-img col-lg-6" id=proddetImg></div>
+            <div class="product-details col-lg-6 text-start">
+                <h4 id="viewProddet">${data.productname}</h4>
+              <div class="product-view">
+                <h6 class="f-w-700" id="viewProddesc">${data.productdesc}</h6>
 
-                  </div>
-                  
-                  
-                </div>
               </div>
-              <button class="btn-close" type="button" data-bs-dismiss="modal" aria-label="Close"></button>
+              
+              
             </div>
           </div>
+          <button class="btn-close" type="button" data-bs-dismiss="modal" aria-label="Close"></button>
         </div>
-      </div>
-      <div class="product-details">
-          <p>${data.productname}</p>
-      <div class="input-group" style="width:100%;margin-top:10px"> <span style="border-radius:0" class="input-group-text decrement-touchspin Cartdecrement">
-                                  <svg class="svg-color" style="width:10px;height:10px">
-                                    <use href="../assets/svg/iconly-sprite.svg#minus"></use>
-                                  </svg></span>
-                                <input class="form-control bg-light-primary input-touchspin cartInut" type="text" pid=${data.pid} value="0" style="padding: 1px;text-align: center;width: 20px;border-radius:0;color:${localStorage.getItem("mode") == "light" ? "black":"white"} !important"><span style="border-radius:0"  class="input-group-text  increment-touchspin Cartincrement">
-                                  <svg class="svg-color" style="width:10px;height:10px">
-                                    <use href="../assets/svg/iconly-sprite.svg#plus"></use>
-                                  </svg></span>
-                              </div>
-
-
       </div>
     </div>
   </div>
+  <div class="product-details">
+      <p>${data.productname}</p>
+  <div class="input-group" style="width:100%;margin-top:10px"> <span style="border-radius:0" class="input-group-text decrement-touchspin Cartdecrement">
+                              <svg class="svg-color" style="width:10px;height:10px">
+                                <use href="../assets/svg/iconly-sprite.svg#minus"></use>
+                              </svg></span>
+                            <input class="form-control bg-light-primary input-touchspin cartInut" type="text" pid=${data.pid} value="0" style="padding: 1px;text-align: center;width: 20px;border-radius:0;color:#9C9999 !important"><span style="border-radius:0"  class="input-group-text  increment-touchspin Cartincrement">
+                              <svg class="svg-color" style="width:10px;height:10px">
+                                <use href="../assets/svg/iconly-sprite.svg#plus"></use>
+                              </svg></span>
+                          </div>
+
+
+  </div>
+</div>
+</div>
 </div>`
-    )).join('')
+)).join('')
 
-    const cartClick = productTray.querySelectorAll(".cartClick");
-    const cartIncrement = productTray.querySelectorAll(".Cartincrement")
-    const cartIncrement2 = productTray.querySelectorAll(".cartClick")
-    const cartDecrement = productTray.querySelectorAll('.Cartdecrement')
-    const cartInput = productTray.querySelectorAll('.cartInut');
-    const viewCart = productTray.querySelectorAll('.cartEye');
-    const viewCart2 = productTray.querySelectorAll('.cartEye2');
-    console.log(viewCart,"viewCartviewCart")
-    let cartArr = JSON.parse(localStorage.getItem('cartArr')) || []
+const cartClick = productTray.querySelectorAll(".cartClick");
+const cartIncrement = productTray.querySelectorAll(".Cartincrement")
+const cartIncrement2 = productTray.querySelectorAll(".cartClick")
+const cartDecrement = productTray.querySelectorAll('.Cartdecrement')
+const cartInput = productTray.querySelectorAll('.cartInut');
+const viewCart = productTray.querySelectorAll('.cartEye');
+const viewCart2 = productTray.querySelectorAll('.cartEye2');
+console.log(viewCart,"viewCartviewCart")
+let cartArr = JSON.parse(localStorage.getItem('cartArr')) || []
 
-       cartInput.forEach((item, index) => {
-        console.log(item, "dcvdhcvhd")
-        if(cartArr.length > 0){
-            cartArr.map((data)=>{
-                if(data.pid == item.getAttribute("pid")){
-                    item.value = data.quantity
-                }
-            })
-        }
-      });
+   cartInput.forEach((item, index) => {
+    console.log(item, "dcvdhcvhd")
+    if(cartArr.length > 0){
+        cartArr.map((data)=>{
+            if(data.pid == item.getAttribute("pid")){
+                item.value = data.quantity
+            }
+        })
+    }
+  });
 
-    viewCart.forEach((item , i) =>{
-      item.addEventListener("click", () => setcartDetail(ProductData[i] , i));
+viewCart.forEach((item , i) =>{
+  item.addEventListener("click", () => setcartDetail(ProductData[i] , i));
+});
+viewCart2.forEach((item , i) =>{
+    item.addEventListener("click", () => setcartDetail(ProductData[i] , i));
+});
+cartClick.forEach((item, index) => {
+  item.addEventListener("click", () => addtoCart(ProductData[index]));
+});
+
+cartIncrement.forEach((item, index)=>{
+  item.addEventListener("click", () => inCrementClick(ProductData[index], index));
+})
+cartIncrement2.forEach((item, index)=>{
+    item.addEventListener("click", () => inCrementClick(ProductData[index], index));
+  })
+cartDecrement.forEach((item, index)=>{
+    item.addEventListener("click", () => decrementClick(ProductData[index], index));
+  })
+
+  cartInput.forEach((item, index) => {
+    item.addEventListener("change", (e) => {
+      console.log("Change detected on index:", index,e.target.value);
+       inCrementClickOnchange(ProductData[index], index);
     });
-    viewCart2.forEach((item , i) =>{
-        item.addEventListener("click", () => setcartDetail(ProductData[i] , i));
-    });
-    cartClick.forEach((item, index) => {
-      item.addEventListener("click", () => addtoCart(ProductData[index]));
-    });
-
-    cartIncrement.forEach((item, index)=>{
-      item.addEventListener("click", () => inCrementClick(ProductData[index], index));
-    })
-    cartIncrement2.forEach((item, index)=>{
-        item.addEventListener("click", () => inCrementClick(ProductData[index], index));
-      })
-    cartDecrement.forEach((item, index)=>{
-        item.addEventListener("click", () => decrementClick(ProductData[index], index));
-      })
-
-      cartInput.forEach((item, index) => {
-        item.addEventListener("change", (e) => {
-          console.log("Change detected on index:", index,e.target.value);
-           inCrementClickOnchange(ProductData[index], index);
-        });
-      });
-
-
-
+  });
 }
 
+renderProducts(ProductData);
 
+  const searchInput = document.getElementById("searchProduct");
+
+  searchInput.addEventListener("input", (event) => {
+    const query = event.target.value.toLowerCase();
+    const filteredProducts = ProductData.filter((item) =>
+      item.productname.toLowerCase().includes(query)
+    );
+    renderProducts(filteredProducts);
+  });
 
    // let removeContainer = document.getElementById('removeContainer')
     // removeContainer.remove();
@@ -764,6 +774,10 @@ window.viewSpecificCartSS = function (gotdata, index) {
         </div>
       </div>
     </div>`;
+    window.scrollTo({
+      top: 1000, // Scroll to 500px from the top
+      behavior: "smooth" // Smooth scrolling animation
+    });
 
     if (gotdata.cartstage === "S") {
         document.getElementById("rejectButton").addEventListener("click", () => {
@@ -775,10 +789,7 @@ window.viewSpecificCartSS = function (gotdata, index) {
         });
       }
     // Smooth scroll slightly up
-    window.scrollTo({
-        top: 500, // Scroll to 500px from the top
-        behavior: "smooth" // Smooth scrolling animation
-      });
+   
   };
   const cartStatusObj={
     "P":"Pending",
