@@ -118,34 +118,74 @@ function changeTab() {
     console.error("SideMenuTabs or MenuArr is invalid!");
   }
 }
-
+function convertImageToBase64(file) {
+  return new Promise((resolve, reject) => {
+    const reader = new FileReader();
+    reader.readAsDataURL(file);
+    reader.onload = () => resolve(reader.result.split(',')[1]); // Remove the data URL prefix
+    reader.onerror = error => reject(error);
+  });
+}
 Addbutton.addEventListener("click", () => {
   const addPopup = AddModal(InputObj[ActiveTab], ActiveTab);
   const mainWrapper = document.getElementById("mainWrapper");
+
+  // Remove existing modals before adding a new one
   document.querySelectorAll(".modal").forEach((modal) => modal.remove());
-  let webloader = document.querySelector('.loader-wrapper');
-  if (webloader && ActiveTab != "company") {
+
+  let webloader = document.querySelector(".loader-wrapper");
+  if (webloader && ActiveTab !== "company") {
     webloader.style.display = "flex"; // Show loader
   }
+
   mainWrapper.innerHTML += addPopup;
   const addForm = document.getElementById("addForm");
-  addForm.addEventListener("submit", (e) => {
+
+  addForm.addEventListener("submit", async (e) => {
     e.preventDefault();
 
-    let formData = [...addForm.elements].map((el) => ({
-      name: el.id,
-      value: el.type == "number" ? parseInt(el.value) : el.value,
-    }));
-    const filteredData = formData.filter((item) => item.name.trim() !== "");
-    console.log(filteredData,"filteredDatafilteredData")
+    let isValid = true;
+    let formData = [];
 
-    AddProduct(ActiveTab, filteredData);
+    for (const el of addForm.elements) {
+      if (el.required && !el.value.trim()) {
+        el.classList.add("is-invalid");
+        isValid = false;
+      } else {
+        el.classList.remove("is-invalid");
+      }
+
+      if (el.type === "file" && el.files.length > 0) {
+        formData.push({
+          name: el.id,
+          value: await convertImageToBase64(el.files[0]), // Convert file to Base64
+        });
+      } else if (el.type !== "submit") {
+        formData.push({
+          name: el.id,
+          value: el.type === "number" ? parseInt(el.value) : el.value,
+        });
+      }
+    }
+
+    if (!isValid) {
+      console.log("Form is invalid. Please fill all required fields.");
+      return; 
+    }
+
+    console.log("Form is valid. Proceeding with API call...");
+    console.log("Filtered Data:", formData);
+
+    // ✅ Call API only if form is valid
+    AddProduct(ActiveTab, formData);
   });
+
   const modal = document.querySelector(".btn-close");
-  modal?.addEventListener('click',()=>{
-    window.location.reload()
-  })
+  modal?.addEventListener("click", () => {
+    window.location.reload();
   });
+});
+
 
 
 
@@ -252,6 +292,10 @@ EditItems.forEach((item, index) => {
 
     const EditModall = EditModal(Apidata['data'][index], tabName);
     const mainWrapper = document.getElementById("mainWrapper");
+    let webloader = document.querySelector(".loader-wrapper");
+  if (webloader && ActiveTab !== "company") {
+    webloader.style.display = "flex"; // Show loader
+  }
     mainWrapper.innerHTML += EditModall;
 
     const editForm = document.getElementById("editForm");

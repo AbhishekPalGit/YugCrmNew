@@ -1,72 +1,93 @@
 import { Frontconstants } from "./Frontconstants.js";
 import { RoleConstant } from "./Frontconstants.js";
 import Apicall from "./Apicall.js"
-export const AddModal =(inputArr, tabName)=>{ 
-  console.log("inputtARr",inputArr)
-  const inputFields = inputArr.map((input) => {
-    return `
-      ${input.type !== "dropdown" ? `<div class="col-md-12">
-        <label for="${input.label}" class="form-label">${input.label}</label>
-        <input 
-          type="${input.type}" 
-          class="form-control" 
-          id="${input.id}"
-          placeholder="${input.placeholder || ''}" 
-          ${input.required ? 'required' : ''}
-        >
-        ${input.required ? '<div class="invalid-feedback">This field is required.</div>' : ''}
-      </div> ` : 
-      `<div class="col-12">
-      <label class="form-label" for="validationCustom04">${input.label}</label>
-      <select id=${input.id} class="form-select" required="true">
 
-         ${setTimeout(()=>{
-              getDropdownVal(input.id)
-         },100)
-      }
-      </select>
-      <div class="invalid-feedback">Please select a valid state.</div>
-      <div class="valid-feedback">
-         Looks's Good!</div>
-    </div>` }
-    `;
+export const AddModal = (inputArr, tabName) => {
+  console.log("inputtARr", inputArr);
+  const inputFields = inputArr.map((input) => {
+    if (input.type === "file") {
+      return `
+        <div class="col-md-12">
+          <label for="${input.label}" class="form-label">${input.label}</label>
+          <input 
+            type="${input.type}" 
+            class="form-control" 
+            id="${input.id}"
+            accept="image/*" 
+            ${input.required ? 'required' : ''}
+          >
+          ${input.required ? '<div class="invalid-feedback">This field is required.</div>' : ''}
+        </div>
+      `;
+    } else if (input.type !== "dropdown") {
+      return `
+        <div class="col-md-12">
+          <label for="${input.label}" class="form-label">${input.label}</label>
+          <input 
+            type="${input.type}" 
+            class="form-control" 
+            id="${input.id}"
+            placeholder="${input.placeholder || ''}" 
+            ${input.required ? 'required' : ''}
+          >
+          ${input.required ? '<div class="invalid-feedback">This field is required.</div>' : ''}
+        </div>
+      `;
+    } else {
+      return `
+        <div class="col-12">
+          <label class="form-label" for="validationCustom04">${input.label}</label>
+          <select id=${input.id} class="form-select" required="true">
+            ${setTimeout(() => {
+              getDropdownVal(input.id);
+            }, 100)}
+          </select>
+          <div class="invalid-feedback">Please select a valid state.</div>
+          <div class="valid-feedback">Looks's Good!</div>
+        </div>
+      `;
+    }
   }).join('');
-    return ( `
-<div class="modal fade show customModall" id="exampleModalgetbootstrap" tabindex="-1" aria-labelledby="exampleModalgetbootstrap" aria-modal="true" role="dialog" style="display: block;">
-  <div class="modal-dialog" role="document">
-    <div class="modal-content">
-   ${localStorage.getItem('mode') == "light" ? `<div class="modal-header" style="background-color:#CCCCCC">
-                            <h3 class="modal-title fs-5" id="exampleModalLongTitle">Add ${tabName}</h3>
-                            <button class="btn-close " type="button" data-bs-dismiss="modal" aria-label="Close"></button>
-                          </div>` :
-                          `<div class="modal-header" style="background-color:black">
-                            <h3 class="modal-title fs-5" id="exampleModalLongTitle">Add ${tabName}</h3>
-                            <button class="btn-close " type="button" data-bs-dismiss="modal" aria-label="Close"></button>
-                          </div>`
-                          }
-      <div class="modal-toggle-wrapper social-profile text-start dark-sign-up">
-        <div class="modal-body">
-          <form id="addForm" class="row g-3 needs-validation" novalidate>
-            ${inputFields}
-             <div  class="col-md-12" style="text-align: center;">
-                    <div id="AddModalResp" style="margin-bottom:10px"></div>   
-                <button type="submit" class="btn btn-primary">Add ${tabName}</button>
-              </div>
-          </form>
+
+  return (`
+    <div class="modal fade show customModall" id="exampleModalgetbootstrap" tabindex="-1" aria-labelledby="exampleModalgetbootstrap" aria-modal="true" role="dialog" style="display: block;">
+      <div class="modal-dialog" role="document">
+        <div class="modal-content">
+          ${localStorage.getItem('mode') == "light" ? `
+            <div class="modal-header" style="background-color:#CCCCCC">
+              <h3 class="modal-title fs-5" id="exampleModalLongTitle">Add ${tabName}</h3>
+              <button class="btn-close " type="button" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>` : `
+            <div class="modal-header" style="background-color:black">
+              <h3 class="modal-title fs-5" id="exampleModalLongTitle">Add ${tabName}</h3>
+              <button class="btn-close " type="button" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>`
+          }
+          <div class="modal-toggle-wrapper social-profile text-start dark-sign-up">
+            <div class="modal-body">
+              <form id="addForm" class="row g-3 needs-validation" novalidate>
+                ${inputFields}
+                <div class="col-md-12" style="text-align: center;">
+                  <div id="AddModalResp" style="margin-bottom:10px"></div>   
+                  <button type="submit" class="btn btn-primary">Add ${tabName}</button>
+                </div>
+              </form>
+            </div>
+          </div>
         </div>
       </div>
     </div>
-  </div>
-</div>`)
-}
+  `);
+};
+
 document.addEventListener("DOMContentLoaded", () => {
   const observer = new MutationObserver((mutationsList, observer) => {
     const addForm = document.getElementById('addForm');
     if (addForm) {
       console.log("addForm", addForm);
-      
-      addForm.addEventListener('submit', function(event) {
-        event.preventDefault(); 
+
+      addForm.addEventListener('submit', async function (event) {
+        event.preventDefault();
 
         const requiredFields = addForm.querySelectorAll('[required]');
         let isValid = true;
@@ -91,14 +112,31 @@ document.addEventListener("DOMContentLoaded", () => {
           }
         });
 
+        // Handle image upload
+        const imageInput = addForm.querySelector('input[type="file"]');
+        let base64Image = null;
+
+        if (imageInput && imageInput.files.length > 0) {
+          const file = imageInput.files[0];
+          base64Image = await convertImageToBase64(file);
+        }
+
         if (isValid) {
           console.log('Form is valid. Submitting...');
+
+          // Prepare payload
+          const payload = {
+            // Add other form fields here
+            image: base64Image, // Include the Base64 image in the payload
+          };
+
+         
         } else {
           console.log('Form is invalid. Please correct the errors.');
         }
       });
 
-      observer.disconnect(); 
+      observer.disconnect();
     }
   });
 
@@ -110,6 +148,18 @@ function validateEmail(email) {
   const re = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
   return re.test(String(email).toLowerCase());
 }
+
+// Function to convert image to Base64
+function convertImageToBase64(file) {
+  return new Promise((resolve, reject) => {
+    const reader = new FileReader();
+    reader.readAsDataURL(file);
+    reader.onload = () => resolve(reader.result.split(',')[1]); // Remove the data URL prefix
+    reader.onerror = error => reject(error);
+  });
+}
+
+// Rest of your existing code...
 
 // Rest of your existing code...
 
