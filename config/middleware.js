@@ -50,10 +50,24 @@ module.exports = (req, res, next) => {
             }
         });
     } else {
-        response = {
-            "status": "failed",
-            "message": "Invalid Token"
+        if (req.body.api_name == 'login') {
+            // ================== IpAddress ================== 
+            var ip = req.header('x-forwarded-for') || req.connection.remoteAddress;
+            var IpAddress = "";
+            if (ip == "::1") {
+                IpAddress = "127.1.1.1";
+            } else {
+                IpAddress = ip.split(',')[0];
+            }
+            req.body.IpAddress = IpAddress;
+            // ================== IpAddress ================== 
+            next();
+        } else {
+            response = {
+                "status": "failed",
+                "message": "Invalid Token"
+            }
+            res.status(403).json(response);
         }
-        res.status(403).json(response);
     }
 };

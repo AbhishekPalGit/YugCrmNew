@@ -220,16 +220,16 @@ exports.addUpdCartItems = async function(post) {
         'status': "failed",
         'data': "Something went wrong. Please try again later"
     }
-    try {
+    // try {
         for (const item of post.items) {
-          const { pid, quantity, units } = item;
-          console.log("quantity", quantity);
+          const { pid, quantity, uom, uomprice } = item;
           await database.query(
-            "INSERT INTO cartitemdet (cartid, pid, qty, units, isdeleted, isactive, createddt, createdby, createdip) VALUES ("+
+            "INSERT INTO cartitemdet (cartid, pid, qty, uom, uomprice, isdeleted, isactive, createddt, createdby, createdip) VALUES ("+
             post.cartId + "," +
             pid + " , " + 
             quantity + " , '" + 
-            units + "' , " + 
+            uom + "' , " + 
+            uomprice + " , " + 
             "0" + ", " +
             "1" + " , '" +
             constants.currentDateTime + "', '" +
@@ -238,7 +238,8 @@ exports.addUpdCartItems = async function(post) {
             "ON DUPLICATE KEY UPDATE " +
             "isdeleted = 0 , " +
             "qty = " + quantity + ", " +
-            "units = '" + units + "', " +
+            "uom = '" + uom + "', " +
+            "uomprice = " + uomprice + ", " +
             "updateddt = '" + constants.currentDateTime + "', " +
             "updatedby = '" + post.emailId + "', "+
             "updatedip = '" + post.IpAddress + "'"
@@ -249,9 +250,9 @@ exports.addUpdCartItems = async function(post) {
             'status': "success",
             'data': "Items Added Successfully"
         }
-    } catch (error) {
-        result.data = error;
-    }
+    // } catch (error) {
+    //     result.data = error;
+    // }
     return result;
 }
 

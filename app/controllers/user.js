@@ -126,6 +126,7 @@ exports.login = async (req, res) => {
                             'email' : users.data[0]['email'],
                             'IpAddress' : body.IpAddress,
                         }
+                            console.log("postDet", body);
                         const loginLog  = await userModel.loginLogs(postDet);
                         result = {
                             'status': "success",

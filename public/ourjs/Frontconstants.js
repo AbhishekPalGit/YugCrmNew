@@ -79,6 +79,9 @@ export const Frontconstants ={
           "imagelink": 'Image', 
           "quantity": 'Quantity',
           "cartid": 'Cart Id',
+          "uom": "Units",
+          "uomprice": "Rate",
+          "CPN": "CPN",
       },
       "PM": {
           'pending_tasks' : 'Pending Carts',

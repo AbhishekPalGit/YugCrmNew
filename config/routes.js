@@ -34,7 +34,7 @@ module.exports = function (app) {
 	// User Module
 	app.post('/crm/api/v1/user/getUserList', middlware, userCtrl.getUserList);
 	app.post('/crm/api/v1/user/addUser', middlware, userCtrl.addUser); //signup
-	app.post('/crm/api/v1/auth/login', userCtrl.login); //login
+	app.post('/crm/api/v1/auth/login', middlware, userCtrl.login); //login
 	app.post('/crm/api/v1/user/updateUser', middlware, userCtrl.updateUser);
 	app.post('/crm/api/v1/user/deleteUser', middlware, userCtrl.deleteUser);
 

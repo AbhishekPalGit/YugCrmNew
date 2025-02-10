@@ -173,6 +173,7 @@ exports.addUser = async function(post) {
 }
 
 exports.loginLogs = async function(post) {
+    console.log("post=>>>>>>>>>>>>>", post);
     var result = {
         'status': "failed",
         'data': "Something went wrong. Please try again later"
