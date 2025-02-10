@@ -109,7 +109,10 @@ export const Frontconstants ={
           "image": "Image", 
           "pid": "Product Id", 
           "productdesc": "Item Description", 
-          "productname": "Item Name", 
+          "productname": "Item Name",
+          "uom": "Units",
+          "uomprice": "Rate",
+          "CPN": "CPN",
       },
     }
 }
@@ -144,18 +147,11 @@ export const InputObj = {
       ],
       users:[
         {
-          label: "First Name",
+          label: "User Name",
           type: "text",
-          placeholder: "Enter First Name",
+          placeholder: "Enter Full Name",
           required: true,
-          id: "fname",
-        },
-        {
-          label: "Last Name",
-          type: "text",
-          placeholder: "Enter Last Name",
-          required: true,
-          id: "lname",
+          id: "name",
         },
         {
           label: "Email",
@@ -255,13 +251,15 @@ export const InputObj = {
           placeholder: "Enter Price",
           required: true,
           id: "price",
+          val:"uomprice"
         },
         {
           label: "Unit Of Measurement",
-          type: "number",
+          type: "text",
           placeholder: "Enter UOM",
           required: true,
           id: "UOM",
+          val:"uom"
         },
         {
           label: "CPN No.",

@@ -70,21 +70,27 @@ exports.addProduct = async (req, res) => {
             result.message = 'Please Prvoide Required Details.';
         } else if (body.api_name == "" || body.api_name == undefined || body.api_name != "addProduct") {
             result.message = 'Invlaid API';
-        } else if (body.productName == "" || body.productName ==  undefined) {
+        } else if (body.ProductName == "" || body.ProductName ==  undefined) {
             result.message = 'Provide product name';
-        } else if (body.productDesc == "" || body.productDesc ==  undefined) {
+        } else if (body.ProductDesc == "" || body.ProductDesc ==  undefined) {
             result.message = 'Provide product description';
         } else if (body.brand == "" || body.brand ==  undefined) {
             result.message = 'Provide brand';
-        } else if (body.hsnCode == "" || body.hsnCode ==  undefined) {
+        } else if (body.HsnCode == "" || body.HsnCode ==  undefined) {
             result.message = 'Provide HSN Code';
-        } else if (body.gst == "" || body.gst ==  undefined) {
+        } else if (body.Gst == "" || body.Gst ==  undefined) {
             result.message = 'Provide GST rate';
         } else if (body.companyId == "" || body.companyId ==  undefined) {
             result.message = 'Provide company Id';
+        } else if (body.CPN == "" || body.CPN ==  undefined) {
+            result.message = 'Provide CPN';
+        } else if (body.UOM == "" || body.UOM ==  undefined) {
+            result.message = 'Provide CPN';
+        } else if (body.price == "" || body.price ==  undefined) {
+            result.message = 'Provide CPN';
         } else {
-            if (body.img == "" || body.img == undefined) {
-                body.imgPath = '/assets/profilePhotos/defaultImg.png';
+            if (body.Img == "" || body.Img == undefined) {
+                body.ImgPath = 'defaultImg.png';
                 var productDet = await productModel.addProduct(body);
                 if (productDet.status == "success") {
                     if (productDet.data > 0) {
@@ -100,7 +106,7 @@ exports.addProduct = async (req, res) => {
                     result.message = productDet.data;
                 }
             } else {
-                var matches = body.img.match(/^data:([A-Za-z-+/]+);base64,(.+)$/),
+                var matches = body.Img.match(/^data:([A-Za-z-+/]+);base64,(.+)$/),
                 response = {};
                 if (matches.length !== 3) {
                     result = {
@@ -118,10 +124,12 @@ exports.addProduct = async (req, res) => {
                     var allowedExt = ['jpeg', 'jpg', 'JPEG', 'JPG', 'png', 'PNG'];
                     if (allowedExt.includes(extension)) {
                         var randomImgName = await getRandomString(10);
-                        let fileName = body.hsnCode + "_" + randomImgName + "." + extension;
+                        let fileName = body.HsnCode + "_" + randomImgName + "." + extension;
                         try {
-                            fs.writeFileSync("././assets/profilePhotos/" + fileName, imageBuffer, 'utf8');
-                            body.imgPath = '/assets/profilePhotos/' + fileName;
+                            const UPLOAD_DIR = path.resolve(__dirname, "../../public/products");
+                            const filePath = path.join(UPLOAD_DIR, `${fileName}`);
+                            fs.writeFile(filePath, imageBuffer, "base64", (err) =>{});
+                            body.ImgPath = fileName;
                             var productDet = await productModel.addProduct(body);
                             if (productDet.status == "success") {
                                 if (productDet.data > 0) {
@@ -176,24 +184,94 @@ exports.updateProduct = async (req, res) => {
             result.message = 'Please Prvoide Required Details.';
         } else if (body.api_name == "" || body.api_name == undefined || body.api_name != "updateProduct") {
             result.message = 'Invlaid API';
-        } else if (body.siteName == "" || body.siteName == undefined) {
-            result.message = 'Provide site Name';
-        } else if (body.siteId == "" || body.siteId == undefined) {
-            result.message = 'Provide site Id';
+        } else if (body.ProductName == "" || body.ProductName ==  undefined) {
+            result.message = 'Provide product name';
+        } else if (body.ProductDesc == "" || body.ProductDesc ==  undefined) {
+            result.message = 'Provide product description';
+        } else if (body.brand == "" || body.brand ==  undefined) {
+            result.message = 'Provide brand';
+        } else if (body.HsnCode == "" || body.HsnCode ==  undefined) {
+            result.message = 'Provide HSN Code';
+        } else if (body.Gst == "" || body.Gst ==  undefined) {
+            result.message = 'Provide GST rate';
+        } else if (body.companyId == "" || body.companyId ==  undefined) {
+            result.message = 'Provide company Id';
+        } else if (body.CPN == "" || body.CPN ==  undefined) {
+            result.message = 'Provide CPN';
+        } else if (body.UOM == "" || body.UOM ==  undefined) {
+            result.message = 'Provide CPN';
+        } else if (body.price == "" || body.price ==  undefined) {
+            result.message = 'Provide CPN';
         } else {
-            var siteUpdDet = await productModel.updateProduct(body);
-            if (siteUpdDet.status == "success") {
-                if (siteUpdDet.data.affectedRows > 0) {
-                    result = {
-                        'status': "success",
-                        'message': 'Data updated successfully',
-                        'data' : siteUpdDet.data.affectedRows
+            if (body.Img == "" || body.Img == undefined) {
+                body.ImgPath = 'defaultImg.png';
+                var productDet = await productModel.updateProduct(body);
+                if (productDet.status == "success") {
+                    if (productDet.data > 0) {
+                        result = {
+                            'status': "success",
+                            'message': 'Data saved successfully',
+                            'data' : productDet.data
+                        }
+                    } else {
+                        result.message = 'Error saving data';
                     }
                 } else {
-                    result.message = 'Error Updating data. Try again';
+                    result.message = productDet.data;
                 }
             } else {
-                result.message = siteUpdDet.data;
+                var matches = body.Img.match(/^data:([A-Za-z-+/]+);base64,(.+)$/),
+                response = {};
+                if (matches.length !== 3) {
+                    result = {
+                        "status": "failed",
+                        "message": "Invalid profile Image",
+                        "data": "",
+                    }
+                } else {
+                    response.type = matches[1];
+                    response.data = new Buffer(matches[2], 'base64');
+                    let decodedImg = response;
+                    let imageBuffer = decodedImg.data;
+                    let type = decodedImg.type;
+                    let extension = type.split('/').pop();
+                    var allowedExt = ['jpeg', 'jpg', 'JPEG', 'JPG', 'png', 'PNG'];
+                    if (allowedExt.includes(extension)) {
+                        var randomImgName = await getRandomString(10);
+                        let fileName = body.HsnCode + "_" + randomImgName + "." + extension;
+                        try {
+                            const UPLOAD_DIR = path.resolve(__dirname, "../../public/products");
+                            const filePath = path.join(UPLOAD_DIR, `${fileName}`);
+                            fs.writeFile(filePath, imageBuffer, "base64", (err) =>{});
+                            body.ImgPath = fileName;
+                            var productDet = await productModel.updateProduct(body);
+                            if (productDet.status == "success") {
+                                if (productDet.data.affectedRows > 0) {
+                                    result = {
+                                        'status': "success",
+                                        'message': 'Data updated successfully'
+                                    }
+                                } else {
+                                    result.message = 'Error saving data';
+                                }
+                            } else {
+                                result.message = productDet.data;
+                            }
+                        } catch (e) {
+                            result = {
+                                "status": "failed",
+                                "message": e,
+                                "data": "",
+                            }
+                        }
+                    } else {
+                        result = {
+                            "status": "failed",
+                            "message": "Image extension is not valid",
+                            "data": "",
+                        }
+                    }
+                }
             }
         }
         res.status(200).json(result);

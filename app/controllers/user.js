@@ -185,10 +185,8 @@ exports.addUser = async (req, res) => {
             result.message = 'Please Prvoide Required Details.';
         } else if (body.api_name == "" || body.api_name == undefined || body.api_name != "addUser") {
             result.message = 'Invlaid API';
-        } else if (body.fname == "" || body.fname == undefined){
+        } else if (body.name == "" || body.name == undefined){
             result.message = "Provide first name";
-        } else if (body.lname == "" || body.lname == undefined){
-            result.message = "Provide last name";
         } else if (body.email == "" || body.email == undefined){
             result.message = "Provide email Id";
         } else if (body.mobileno == "" || body.mobileno == undefined){
@@ -204,9 +202,11 @@ exports.addUser = async (req, res) => {
         } else {
             const hashedPassword = await hashPassword(body.usrpass);
             body.usrpass = hashedPassword;
-            // const isValid = await verifyPassword(body.usrpass, hashedPassword);
-            // console.log('Password is valid=>>>:', isValid);
-            // return false;
+            const [first, ...remaining] = body.name.split(" ");
+            const second = remaining.join(" ");
+            body.fname = first;
+            body.lname = second;
+            delete body.name;
             var userDet = await userModel.addUser(body);
             if (userDet.status == "success") {
                 if (userDet.data > 0) {
@@ -245,10 +245,8 @@ exports.updateUser = async (req, res) => {
             result.message = 'Please Prvoide Required Details.';
         } else if (body.api_name == "" || body.api_name == undefined || body.api_name != "updateUser") {
             result.message = 'Invlaid API';
-        } else if (body.fname == "" || body.fname == undefined){
+        } else if (body.name == "" || body.name == undefined){
             result.message = "Provide first name";
-        } else if (body.lname == "" || body.lname == undefined){
-            result.message = "Provide last name";
         } else if (body.email == "" || body.email == undefined){
             result.message = "Provide email Id";
         } else if (body.mobileno == "" || body.mobileno == undefined){
@@ -265,6 +263,15 @@ exports.updateUser = async (req, res) => {
             } else {
                 body.usrpass = null;
             }
+
+            const [first, ...remaining] = body.name.split(" ");
+            const second = remaining.join(" ");
+            body.fname = first;
+            body.lname = second;
+            delete body.name;
+            console.log("body", body);
+            return false;
+
             var userUpdDet = await userModel.updateUser(body);
             if (userUpdDet.status == "success") {
                 if (userUpdDet.data.affectedRows > 0) {

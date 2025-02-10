@@ -55,7 +55,7 @@ export async function setActiveTab(data , i){
      }else if(localStorage.getItem("UserSpec") === "SS" ){
 
         console.log("dbhcbhdbcd111")
-        await saveCart("saveCart","save")
+        i !== 0 && await saveCart("saveCart","save")
         console.log(saveCart,"1111savecart")
       
   

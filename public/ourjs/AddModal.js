@@ -55,11 +55,11 @@ export const AddModal = (inputArr, tabName) => {
         <div class="modal-content">
           ${localStorage.getItem('mode') == "light" ? `
             <div class="modal-header" style="background-color:#CCCCCC">
-              <h3 class="modal-title fs-5" id="exampleModalLongTitle">Add ${tabName}</h3>
+              <h3 class="modal-title fs-5 upperCaseLbl" id="exampleModalLongTitle">Add ${tabName}</h3>
               <button class="btn-close " type="button" data-bs-dismiss="modal" aria-label="Close"></button>
             </div>` : `
             <div class="modal-header" style="background-color:black">
-              <h3 class="modal-title fs-5" id="exampleModalLongTitle">Add ${tabName}</h3>
+              <h3 class="modal-title fs-5 upperCaseLbl" id="exampleModalLongTitle">Add ${tabName}</h3>
               <button class="btn-close " type="button" data-bs-dismiss="modal" aria-label="Close"></button>
             </div>`
           }
@@ -69,7 +69,7 @@ export const AddModal = (inputArr, tabName) => {
                 ${inputFields}
                 <div class="col-md-12" style="text-align: center;">
                   <div id="AddModalResp" style="margin-bottom:10px"></div>   
-                  <button type="submit" class="btn btn-primary">Add ${tabName}</button>
+                  <button type="submit" class="btn btn-primary upperCaseLbl">Add ${tabName}</button>
                 </div>
               </form>
             </div>

@@ -9,7 +9,7 @@ exports.getProductList = async function(post) {
         'data': "Something went wrong. Please try again later"
     }
     try {
-        let getData = await database.query("SELECT pid, productname, productdesc, brand, hsncode, gstext, imagelink, ccid, isactive FROM productmaster"
+        let getData = await database.query("SELECT pid, productname, productdesc, brand, hsncode, gstext, imagelink, ccid, uom, uomprice, CPN, isactive FROM productmaster"
             , {}, {
             type: Sequelize.QueryTypes.SELECT,
         });
@@ -29,13 +29,16 @@ exports.addProduct = async function(post) {
         'data': "Something went wrong. Please try again later"
     }
     try {
-        let insertSite = await database.query("INSERT INTO productmaster (productname, productdesc, brand, hsncode, gstext, imagelink, ccid, isactive, createddt, createdby, createdip) VALUES ('" +
-        post.productName + "', '" +
-        post.productDesc + "', '" +
+        let insertSite = await database.query("INSERT INTO productmaster (productname, productdesc, brand, hsncode, gstext, imagelink, CPN, uom, uomprice, ccid, isactive, createddt, createdby, createdip) VALUES ('" +
+        post.ProductName + "', '" +
+        post.ProductDesc + "', '" +
         post.brand + "', '" +
-        post.hsnCode + "', '" +
-        post.gst + "', '" +
-        post.imgPath + "', " +
+        post.HsnCode + "', '" +
+        post.Gst + "', '" +
+        post.ImgPath + "', " +
+        post.CPN + ", '" +
+        post.UOM + "', " +
+        post.price + ", " +
         post.companyId + ", " +
         "1" + ", '" +
         constants.currentDateTime + "', '" +
@@ -59,7 +62,7 @@ exports.updateProduct = async function(post) {
         'data': "Something went wrong. Please try again later"
     }
     try {
-        let updSite = await database.query("UPDATE productmaster SET csname = '"+ post.siteName +"', ccid = "+ post.companyId +", updatedby = '"+ post.emailId +"', updatedip = '"+ post.IpAddress +"', updateddt = '"+ constants.currentDateTime +"' WHERE csid = " + post.siteId + " AND isactive = 1", {}, {
+        let updSite = await database.query("UPDATE productmaster SET productname = '" + post.ProductName + "', productdesc = '" + post.ProductDesc + "', brand = '" + post.brand + "', hsncode = " + post.HsnCode + ", gstext = " + post.Gst + ", imagelink = '" + post.ImgPath + "', CPN = '" + post.CPN + "', uom = '" + post.UOM + "', uomprice = " + post.price + ", ccid = " + post.companyId + ", isactive = 1, updatedby = '"+ post.emailId +"', updatedip = '"+ post.IpAddress +"', updateddt = '"+ constants.currentDateTime +"' WHERE pid = " + post.productId + ";", {}, {
                 type: Sequelize.QueryTypes.SELECT,
         });
         result = {
@@ -322,6 +325,9 @@ exports.getCartDetail = async function(post) {
                 "p.hsncode," + 
                 "p.gstext," + 
                 "p.imagelink," + 
+                "p.uom," + 
+                "p.uomprice," + 
+                "p.CPN," + 
                 "ci.cartid," + 
                 "COALESCE(ci.quantity, 0) AS quantity " + 
                 "FROM " + 

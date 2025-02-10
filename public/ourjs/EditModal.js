@@ -45,11 +45,11 @@ export const EditModal = (editData, tabName) => {
         <div class="modal-content">
           ${localStorage.getItem('mode') == "light" ? `
             <div class="modal-header" style="background-color:#CCCCCC">
-              <h3 class="modal-title fs-5" id="exampleModalLongTitle">Edit ${tabName}</h3>
+              <h3 class="modal-title fs-5 upperCaseLbl" id="exampleModalLongTitle">Edit ${tabName}</h3>
               <button class="btn-close" type="button" data-bs-dismiss="modal" aria-label="Close"></button>
             </div>` : `
             <div class="modal-header" style="background-color:black">
-              <h3 class="modal-title fs-5" id="exampleModalLongTitle">Edit ${tabName}</h3>
+              <h3 class="modal-title fs-5 upperCaseLbl" id="exampleModalLongTitle">Edit ${tabName}</h3>
               <button class="btn-close" type="button" data-bs-dismiss="modal" aria-label="Close"></button>
             </div>`
           }
@@ -59,7 +59,7 @@ export const EditModal = (editData, tabName) => {
                 ${inputFields}
                 <div class="col-md-12" style="text-align: center;">
                   <div id="EditModalResp" style="margin-bottom:10px"></div>   
-                  <button type="submit" class="btn btn-primary">Update ${tabName}</button>
+                  <button type="submit" class="btn btn-primary upperCaseLbl">Update ${tabName}</button>
                 </div>
               </form>
             </div>
