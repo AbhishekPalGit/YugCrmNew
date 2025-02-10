@@ -65,25 +65,34 @@ export const Frontconstants ={
       getApiName: "confirmCart",
     },
     'cardNames' : {
-      // "SS": {
-      //     'pending' : 'Pending Carts',
-      //     'approved' : 'Approved Carts',
-      //     'rejected' : 'Rejected Carts',
-      //     'submitted' : 'Submitted Carts',
-      // },
-      // "PM": {
-      //     'pending_tasks' : 'Pending Carts',
-      //     'rejected_carts' : 'Rejected Carts',
-      //     'pending_orders' : 'Pending Orders',
-      //     'approved_orders' : 'Approved Orders',
-      //     'rejected_orders' : 'Rejected Orders',
-      // },
-      // "HO": {
-      //     'pending' : 'Pending Orders',
-      //     'approved' : 'Approved Orders',
-      //     'rejected' : 'Rejected Orders',
-      // },
-      ADM: {
+      "SS": {
+          'pending' : 'Pending Carts',
+          'approved' : 'Approved Carts',
+          'rejected' : 'Rejected Carts',
+          'submitted' : 'Submitted Carts',
+          "pid": 'Product Id',
+          "productname": 'Item Name', 
+          "productdesc": 'Item Description', 
+          "brand": 'Brand',
+          "gstext": 'GST', 
+          "hsncode": 'HSN Code', 
+          "imagelink": 'Image', 
+          "quantity": 'Quantity',
+          "cartid": 'Cart Id',
+      },
+      "PM": {
+          'pending_tasks' : 'Pending Carts',
+          'rejected_carts' : 'Rejected Carts',
+          'pending_orders' : 'Pending Orders',
+          'approved_orders' : 'Approved Orders',
+          'rejected_orders' : 'Rejected Orders',
+      },
+      "HO": {
+          'pending' : 'Pending Orders',
+          'approved' : 'Approved Orders',
+          'rejected' : 'Rejected Orders',
+      },
+      "ADM": {
           'ccname' : 'Company Name',
           "siteName": "Site Name",
           "companyName": "Company Name",
@@ -94,8 +103,7 @@ export const Frontconstants ={
           "roleName": "Role Name",
           "userActive": 'Active Status',
           "SiteName": "Site Name",
-          "brand": "Brand", 
-          // "ccid": "Company Id", 
+          "brand": "Brand",
           "gstext": "GST", 
           "hsncode": "HSN Code", 
           "image": "Image", 
@@ -249,9 +257,9 @@ export const InputObj = {
 export const UserMenus ={
         SA :["company","site","users","product"],
         ADM :["company","site","users","product"],
-        SS :["Home", "Raise Cart", "Cart"],
-        PM :["Home"],
-        HO:["Home"],
+        SS :["Dashboard", "Raise Cart", "Cart"],
+        PM :["Dashboard"],
+        HO:["Dashboard"],
 }
 
 export const RoleConstant =[

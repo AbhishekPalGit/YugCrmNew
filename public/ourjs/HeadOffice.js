@@ -599,17 +599,15 @@ export async function getHOData(data){
           
        
 }
-    else if(data == 'Home'){
+    else if(data == 'Dashboard'){
         WholeMainContent.innerHTML=`<div class="container-fluid default-dashboard">
             <div class="row">
               <div class="col-xxl-4 col-xl-4 proorder-xxl-7 col-lg-12 box-col-12">
                 <div class="card job-card">
                   <div class="card-header pb-0 card-no-border">
                     <div class="header-top">
-                      <h3>Cart Tracker</h3>
-                      <div>  
-                        <p id="dash-currDate">Wednesday 6, <span>Dec 2022</span></p>
-                      </div>
+                      <h3>Orders Tracker</h3>
+                      <p style="margin-bottom: 0;" id="dash-currDate">Wednesday 6, <span>Dec 2022</span></p>
                     </div>
                   </div>
                   <div class="card-body pt-2">
@@ -631,15 +629,15 @@ export async function getHOData(data){
               <div class="col-xxl-8 col-xl-10 proorder-xxl-8 col-lg-12 col-md-6 box-col-7">
                 <div class="card">
                   <div class="card-header card-no-border pb-0">
-                    <h3>Cart History</h3>
+                    <h3>Order History</h3>
                   </div>
                   <div class="card-body transaction-history pt-0">
                     <div class="table-responsive theme-scrollbar" style="max-height:465px">
-                      <div id="transaction_wrapper" class="dataTables_wrapper no-footer"><div id="transaction_filter" class="dataTables_filter"><label>Search:<input type="search" class="" placeholder="" aria-controls="transaction"></label></div><table class="table display table-bordernone dataTable no-footer" id="transaction" style="width: 100%;" role="grid">
+                      <div id="transaction_wrapper" class="dataTables_wrapper no-footer"><table class="table display table-bordernone dataTable no-footer" id="transaction" style="width: 100%;" role="grid">
                        
    <thead>
    <tr role="row">
-     <th class="sorting_disabled" rowspan="1" colspan="1" >Id</th>
+     <th class="sorting_disabled" rowspan="1" colspan="1" >Order Id</th>
      <th class="sorting_disabled" rowspan="1" colspan="1" >Status</th>
      <th class="sorting_disabled" rowspan="1" colspan="1" >Status</th>
      <th class="sorting_disabled" rowspan="1" colspan="1" >Created By</th>
@@ -677,6 +675,7 @@ export async function getHOData(data){
             let summary = getHodashboard.data.summary
             let sumArr = Object.keys(summary)
             cartTraker.innerHTML = sumArr.map((data)=>{
+                let colName = Frontconstants['cardNames']['HO'][data];
                 return ` <li>
                         <div class="d-flex gap-2"> 
                           <div class="flex-shrink-0 bg-light-warning">
@@ -686,7 +685,7 @@ export async function getHOData(data){
                           </div>
                           <div class="flex-grow-1"> 
                             <h3>${summary[data]}</h3>
-                            <p>${data} Cart </p>
+                            <p>${colName}</p>
                           </div>
                         </div>
                       </li>`
@@ -804,7 +803,7 @@ window.viewSpecificCartHo = function (gotdata, index) {
         <div class="col-sm-12">
           <div class="card">
             <div class="card-header card-no-border pb-0">
-              <h3>Cart</h3>
+              <h3>Order</h3>
             </div>
             <div class="card-body text-center">
               <p>Your cart is empty.</p>
@@ -822,7 +821,7 @@ window.viewSpecificCartHo = function (gotdata, index) {
     return `<tr>
               ${tableHeaders.map((key) => {
                 // Check if the key is hsncode and hide it initially
-                if (key === 'hsncode') {
+                if (key === 'hsncode' || key === 'HSN Code') {
                   return `
                     <td>
                       <span id="hsn-${index}" style="display:none">${item[key]}</span>
@@ -849,7 +848,7 @@ window.viewSpecificCartHo = function (gotdata, index) {
                           </tr>` : `<p><p>`
 }
                            <tr>
-                              <td class="text-end" colspan="7"><a class="btn btn-success cart-btn-transform" id=confirmCart >Submit</a></td>
+                              <td class="text-end" colspan="7"><a class="btn btn-success cart-btn-transform" id=confirmCart >Upload PO</a></td>
                             </tr>
     </tbody>
   </table>`;
@@ -859,7 +858,7 @@ window.viewSpecificCartHo = function (gotdata, index) {
       <div class="col-sm-12">
         <div class="card">
           <div class="card-header card-no-border pb-0">
-            <h3>Cart</h3>
+            <h3>Order Details</h3>
           </div>
           <div class="card-body">
             <div class="row">

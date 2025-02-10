@@ -10,7 +10,7 @@ export const purchaseOrder = (purchaseData) => {
       <div class="modal fade show customModall"  id="exampleModalgetbootstrap" tabindex="-1" aria-labelledby="exampleModalgetbootstrap" aria-modal="true" role="dialog" style="display: block;">
         <div class="modal-dialog" role="document">
           <div class="modal-content">
-          <div class="modal-header" style="background-color:black">
+          <div class="modal-header" style="background-color:${localStorage.getItem("mode") == "light" ? "#cccccc":"black"}">
                             <h3 class="modal-title fs-5" id="exampleModalLongTitle">Purchase Order</h3>
                             <button class="btn-close " type="button" data-bs-dismiss="modal" aria-label="Close"></button>
                           </div>

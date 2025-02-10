@@ -37,7 +37,13 @@ export async function setActiveTab(data , i){
  
 
     Addbutton.innerHTML = `<i class="fa-solid fa-plus"></i>Add ${data}`;
-    dashboardHeading.innerHTML = `${data} List`;
+    if (data == 'Dashboard' || data == 'Cart') {
+      dashboardHeading.innerHTML = `${data}`;
+    } else if (data == 'Raise Cart'){
+      dashboardHeading.innerHTML = `Products`;
+    } else {
+      dashboardHeading.innerHTML = `${data} List`;
+    }
     ActiveTab = data;
     let SideMenuTabs = document.querySelectorAll(".sidebar-list");
     SideMenuTabs.forEach(tab => {
@@ -176,15 +182,15 @@ async function getProduct(tabName) {
       //                       </div>
       //                     </th>`;
       colArr.map((data) => {
-        var collName = Frontconstants['cardNames'][localStorage.getItem("UserSpec")][data];
-        if (collName != undefined) {
+        var colName = Frontconstants['cardNames'][localStorage.getItem("UserSpec")][data];
+        if (colName != undefined) {
           tableCol.innerHTML += `
-                <th> <span class="f-light f-w-600">${collName}</span></th>
+                <th> <span class="f-light f-w-800">${colName}</span></th>
             `;
         }
       });
       tableCol.innerHTML += `
-                <th> <span class="f-light f-w-600">Action</span></th>
+                <th> <span class="f-light f-w-800">Action</span></th>
             `;
       tableBody.innerHTML = dataArr
       .map((data) => `

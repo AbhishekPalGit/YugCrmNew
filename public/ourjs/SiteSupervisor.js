@@ -340,9 +340,6 @@ export async function getSiteSuperData(data){
         <div class="row">
           <div class="col-sm-12">
             <div class="card">
-              <div class="card-header card-no-border pb-0">
-                <h3>Cart</h3>
-              </div>
               <div class="card-body">
                 <div class="row">
                   <div class="order-history table-responsive wishlist">
@@ -365,12 +362,22 @@ export async function getSiteSuperData(data){
           // Extract table headers from the first object
           let tableHeadArr = Object.keys(cartData[0]);
           // Render table headers
+          // cartTablehead.innerHTML = `
+          //   <tr>
+          //     ${tableHeadArr.map((key) => `<th>${Frontconstants['cardNames']['SS'][key]}</th>`).join('')}
+          //     <th>Action</th>
+          //   </tr>
+          // `;
           cartTablehead.innerHTML = `
-            <tr>
-              ${tableHeadArr.map((key) => `<th>${key}</th>`).join('')}
-              <th>Action</th>
-            </tr>
+              <tr>
+                  ${tableHeadArr
+                    .filter((key) => (key !== 'cartid' && key !== 'pid'))
+                    .map((key) => `<th>${Frontconstants['cardNames']['SS'][key]}</th>`)
+                    .join('')}
+                  <th>Action</th>
+              </tr>
           `;
+
 
           // Render table body
           cartTablebody.innerHTML = cartData
@@ -394,7 +401,9 @@ export async function getSiteSuperData(data){
                         return `<td>
                         <img src=${item[key]} width="100px" height="100px" alt="product">
                       </td>`
-                    }else{
+                    }else if(key == "gstext"){
+                       return `<td>${item[key]}%</td>`
+                    }else if(key != "cartid" && key != 'pid'){
                        return `<td>${item[key]}</td>`
                     }
                 }
@@ -408,7 +417,7 @@ export async function getSiteSuperData(data){
             .join('');
 
             cartTablebody.innerHTML += `<tr>
-                              <td class="text-end" colspan="10"><a class="btn btn-success cart-btn-transform"  id="submitCart">submit</a></td>
+                              <td class="text-end" colspan="10"><a class="btn btn-success cart-btn-transform"  id="submitCart">Submit</a></td>
 
                             </tr>`
 
@@ -505,7 +514,7 @@ export async function getSiteSuperData(data){
 
 
 }
-    else if(data == 'Home'){
+    else if(data == 'Dashboard'){
         WholeMainContent.innerHTML=`<div class="container-fluid default-dashboard">
             <div class="row">
               <div class="col-xxl-4 col-xl-4 proorder-xxl-7 col-lg-12 box-col-12">
@@ -513,9 +522,7 @@ export async function getSiteSuperData(data){
                   <div class="card-header pb-0 card-no-border">
                     <div class="header-top">
                       <h3>Cart Tracker</h3>
-                      <div>
-                        <p id="dash-currDate">Wednesday 6, <span>Dec 2022</span></p>
-                      </div>
+                      <p style="margin-bottom: 0;" id="dash-currDate">Wednesday 6, <span>Dec 2022</span></p>
                     </div>
                   </div>
                   <div class="card-body pt-2">
@@ -534,16 +541,17 @@ export async function getSiteSuperData(data){
               </div>
               <div class="col-xxl-8 col-xl-10 proorder-xxl-8 col-lg-12 col-md-6 box-col-7">
                 <div class="card">
-                  <div class="card-header card-no-border pb-0">
+                  <div class="card-header card-no-border pb-0" style="text-align:center">
                     <h3>Cart History</h3>
                   </div>
                   <div class="card-body transaction-history pt-0">
                     <div class="table-responsive theme-scrollbar" style="max-height:380px">
-                      <div id="transaction_wrapper" class="dataTables_wrapper no-footer"><div id="transaction_filter" class="dataTables_filter"><label>Search:<input type="search" class="" placeholder="" aria-controls="transaction"></label></div><table class="table display table-bordernone dataTable no-footer" id="transaction" style="width: 100%;" role="grid">
+                      <div id="transaction_wrapper" class="dataTables_wrapper no-footer">
+                      <table class="table display table-bordernone dataTable no-footer" id="transaction" style="width: 100%;" role="grid">
 
    <thead>
     <tr role="row">
-     <th class="sorting_disabled" rowspan="1" colspan="1" >Id</th>
+     <th class="sorting_disabled" rowspan="1" colspan="1" >Cart Id</th>
      <th class="sorting_disabled" rowspan="1" colspan="1" >Status</th>
      <th class="sorting_disabled" rowspan="1" colspan="1" >Status</th>
      <th class="sorting_disabled" rowspan="1" colspan="1" >Created By</th>
@@ -553,12 +561,6 @@ export async function getSiteSuperData(data){
    </tr>
  </thead>
                         <tbody id="cartStatusBody">
-
-
-
-
-
-
                         </tbody>
                       </table></div>
                     </div>
@@ -580,6 +582,7 @@ export async function getSiteSuperData(data){
             let summary = SiteSupervisorData.data.summary
             let sumArr = Object.keys(summary)
             cartTraker.innerHTML = sumArr.map((data)=>{
+                let colName = Frontconstants['cardNames']['SS'][data];
                 return ` <li>
                         <div class="d-flex gap-2">
                           <div class="flex-shrink-0 bg-light-warning">
@@ -589,7 +592,7 @@ export async function getSiteSuperData(data){
                           </div>
                           <div class="flex-grow-1">
                             <h3>${summary[data]}</h3>
-                            <p>${data} Cart </p>
+                            <p>${colName}</p>
                           </div>
                         </div>
                       </li>`
@@ -688,7 +691,7 @@ window.viewSpecificCartSS = function (gotdata, index) {
           <div class="col-sm-12">
             <div class="card">
               <div class="card-header card-no-border pb-0">
-                <h3>Cart</h3>
+                <h3>Cart Details</h3>
               </div>
               <div class="card-body text-center">
                 <p>Your cart is empty.</p>
@@ -751,7 +754,7 @@ window.viewSpecificCartSS = function (gotdata, index) {
         <div class="col-sm-12">
           <div class="card">
             <div class="card-header card-no-border pb-0">
-              <h3>Cart</h3>
+              <h3>Cart Details</h3>
             </div>
             <div class="card-body">
               <div class="row">
