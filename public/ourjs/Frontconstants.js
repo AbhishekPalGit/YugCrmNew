@@ -208,6 +208,7 @@ export const InputObj = {
           placeholder: "Enter Product Name",
           required: true,
           id: "ProductName",
+          val:"productname"
         },
         {
           label: "Product Description",
@@ -215,13 +216,14 @@ export const InputObj = {
           placeholder: "Enter Product Description",
           required: true,
           id: "ProductDesc",
+          val:"productdesc"
         },
         {
           label: "Brand",
           type: "text",
           placeholder: "Enter Brand Name",
           required: true,
-          id: "Brand",
+          id: "brand",
         },
         {
           label: "HSN Code",
@@ -229,6 +231,7 @@ export const InputObj = {
           placeholder: "Enter HSN Code",
           required: true,
           id: "HsnCode",
+          val:"hsncode"
         },
         {
           label: "GST",
@@ -236,6 +239,7 @@ export const InputObj = {
           placeholder: "Enter GST",
           required: true,
           id: "Gst",
+          val:"gstext"
         },
         {
           label: "Company ID",
@@ -243,10 +247,32 @@ export const InputObj = {
           placeholder: "Enter Company ID",
           required: true,
           id: "companyId",
+          val:"ccname"
+        },
+        {
+          label: "Price",
+          type: "number",
+          placeholder: "Enter Price",
+          required: true,
+          id: "price",
+        },
+        {
+          label: "Unit Of Measurement",
+          type: "number",
+          placeholder: "Enter UOM",
+          required: true,
+          id: "UOM",
+        },
+        {
+          label: "CPN No.",
+          type: "number",
+          placeholder: "Enter CPN No",
+          required: true,
+          id: "CPN",
         },
         {
           label: "Image",
-          type: "text",
+          type: "file",
           placeholder: "Upload Image",
           required: true,
           id: "Img",
