@@ -42,7 +42,7 @@ module.exports = function (app) {
 	app.post('/crm/api/v1/product/getProductList', middlware, productCtrl.getProductList);
 	app.post('/crm/api/v1/product/addProduct', middlware, productCtrl.addProduct);
 	app.post('/crm/api/v1/product/updateProduct', middlware, productCtrl.updateProduct);
-	app.post('/crm/api/v1/product/deleteProuct', middlware, productCtrl.deleteProuct);
+	app.post('/crm/api/v1/product/deleteProduct', middlware, productCtrl.deleteProduct);
 	app.post('/crm/api/v1/product/addUpdateCart', middlware, productCtrl.addUpdateCart);
 	app.post('/crm/api/v1/product/approveCart', middlware, productCtrl.approveCart);
 	app.post('/crm/api/v1/product/confirmCart', middlware, productCtrl.confirmCart);

@@ -285,7 +285,7 @@ exports.updateProduct = async (req, res) => {
     }
 }
 
-exports.deleteProuct = async (req, res) => {
+exports.deleteProduct = async (req, res) => {
     let body = req.body;
     var result = {
         'status': "failed",
@@ -295,12 +295,12 @@ exports.deleteProuct = async (req, res) => {
     try {
         if (Object.keys(body).length == 0) {
             result.message = 'Please Prvoide Required Details.';
-        } else if (body.api_name == "" || body.api_name == undefined || body.api_name != "deleteProuct") {
+        } else if (body.api_name == "" || body.api_name == undefined || body.api_name != "deleteProduct") {
             result.message = 'Invlaid API';
         } else if (body.productId == "" || body.productId == undefined) {
             result.message = 'Provide Product Id';
         } else {
-            var siteDltDet = await productModel.deleteProuct(body);
+            var siteDltDet = await productModel.deleteProduct(body);
             if (siteDltDet.status == "success") {
                 if (siteDltDet.data.affectedRows > 0) {
                     result = {

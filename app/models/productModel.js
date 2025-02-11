@@ -75,7 +75,7 @@ exports.updateProduct = async function(post) {
     return result;
 }
 
-exports.deleteProuct = async function(post) {
+exports.deleteProduct = async function(post) {
     var result = {
         'status': "failed",
         'data': "Something went wrong. Please try again later"

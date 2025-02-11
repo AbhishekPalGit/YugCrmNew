@@ -16,7 +16,6 @@ export const Frontconstants ={
         getApiName: "getSiteList",
         delApiName: "deleteSite",
         addApiName: "addSite"
-
     },
     "users":{
         getApiUrl: curUrl + 'user/getUserList',
@@ -29,11 +28,10 @@ export const Frontconstants ={
     "product":{
         getApiUrl: curUrl + 'product/getProductList',
         addApiUrl: curUrl + 'product/addProduct',
-        delApiUrl: curUrl + 'product/deleteProuct',
+        delApiUrl: curUrl + 'product/deleteProduct',
         getApiName: "getProductList",
-        delApiName: "deleteCompany",
+        delApiName: "deleteProduct",
         addApiName: "addProduct"
-
     },
     "pendingCart":{
       getApiUrl: curUrl + 'product/getCartDetail',

@@ -128,7 +128,7 @@ function convertImageToBase64(file) {
   return new Promise((resolve, reject) => {
     const reader = new FileReader();
     reader.readAsDataURL(file);
-    reader.onload = () => resolve(reader.result.split(',')[1]); // Remove the data URL prefix
+    reader.onload = () => resolve(reader.result); // Remove the data URL prefix
     reader.onerror = error => reject(error);
   });
 }
@@ -358,8 +358,7 @@ export async function deleteProduct(obj, tabName) {
       payload
     );
     if (response.status === "success") {
-      console.log("Company deleted successfully");
-      alert("Company deleted successfully");
+      alert(tabName.charAt(0).toUpperCase() + tabName.slice(1) + " deleted successfully");
       location.reload();
     } else {
       console.error("Error deleting company:", response.message);
