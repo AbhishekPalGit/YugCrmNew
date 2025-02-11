@@ -143,7 +143,7 @@ exports.getPMDashboard = async (req, res) => {
                       if (row.ciid) {
                         cartMap.get(row.cartid).items.push({
                             // cartItemId : row.ciid,
-                            // pid: row.pid,
+                            'pid': row.pid,
                             'Item Name': row.productname,
                             'Item Description': row.productdesc,
                             'Brand': row.brand,
