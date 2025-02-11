@@ -223,7 +223,10 @@ const renderProducts = (filteredData) => {
     </div>
   </div>
   <div class="product-details">
-      <p>${data.productname}</p>
+    <div style="display: flex;flex-direction: column;justify-content: center; align-items: center;">
+      <b><p>${data.productname}</p></b>
+      <p> Rs. ${data.uomprice} / ${data.uom}</p>
+    </div>
   <div class="input-group" style="width:100%;margin-top:10px"> <span style="border-radius:0" class="input-group-text decrement-touchspin Cartdecrement">
                               <svg class="svg-color" style="width:10px;height:10px">
                                 <use href="../assets/svg/iconly-sprite.svg#minus"></use>
