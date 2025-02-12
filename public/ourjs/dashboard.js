@@ -412,3 +412,50 @@ LogoutUser.addEventListener('click',async()=>{
   }
  
 })
+
+let EditIdKey = {
+  company: "companyId",
+  site: "siteId",
+  product: "productId",
+  keyVal :{
+    product:"pid",
+    company:"ccid",
+    site:"siteId",
+    user:"usrId",
+  }
+};
+
+export async function EditProduct(obj, tabName , editId) {
+  console.log((obj),"hbxhdcbdhcbdhcbdcd", tabName)
+  const editKey = EditIdKey[tabName]; // e.g., "companyId"
+  
+  let payload = {
+    api_name: Frontconstants[tabName].updateApiName,
+    [editKey]: editId
+  }
+  payload ={...payload, ...obj}
+  console.log("payload4444",payload)
+  try {
+    const response = await Apicall(
+      Frontconstants[tabName].updateApiUrl,
+      "POST",
+      payload
+    );
+    if (response.status === "success") {
+      console.log("updated  successfully");
+      const EditModalResp = document.getElementById("EditModalResp")
+      console.log("EditModalResp",EditModalResp)
+      EditModalResp.innerHTML += ` <div class="alert alert-light-success" role="alert">
+                          <p class="text-success">
+                             <a class="alert-link text-success" href="#"></a>${response.message}</p>
+                        </div>`
+      setTimeout(()=>{
+        location.reload()
+      },1500)        
+    } else {
+      console.error("Error updateing :", response.message);
+    }
+  } catch (error) {
+    console.error("Error calling update API:", error);
+  }
+}

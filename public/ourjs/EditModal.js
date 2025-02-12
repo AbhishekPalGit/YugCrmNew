@@ -1,11 +1,23 @@
 import { Frontconstants, InputObj } from "./Frontconstants.js";
 import { RoleConstant } from "./Frontconstants.js";
 import Apicall from "./Apicall.js";
+import {EditProduct} from "./dashboard.js"
 
+let EditIdKey = {
+  "company": "companyId",
+  "site": "siteId",
+  "product": "productId",
+  "keyVal" :{
+    'product':"pid",
+    "company":"ccid",
+    "site":"siteId",
+    "user":"usrId",
+  }
+};
 export const EditModal = (editData, tabName) => {
   let inputArr = InputObj[tabName];
-  console.log(inputArr,editData, "Input Array for Edit Modal");
-
+  let editIdval = EditIdKey.keyVal[tabName]
+  console.log(inputArr,editData, "Input Array for Edit Modal",editData[editIdval]);
   const inputFields = inputArr.map((input) => {
     const value = editData[input.id] || editData[input.val] || ""; // Get the value from editData or default to empty string
 
@@ -44,22 +56,22 @@ export const EditModal = (editData, tabName) => {
       <div class="modal-dialog" role="document">
         <div class="modal-content">
           ${localStorage.getItem('mode') == "light" ? `
-            <div class="modal-header" style="background-color:#CCCCCC">
-              <h3 class="modal-title fs-5 upperCaseLbl" id="exampleModalLongTitle">Edit ${tabName}</h3>
+            <div class="modal-header" style="background-color:white">
+              <h3 class="modal-title fs-5" id="exampleModalLongTitle">Edit ${tabName}</h3>
               <button class="btn-close" type="button" data-bs-dismiss="modal" aria-label="Close"></button>
             </div>` : `
-            <div class="modal-header" style="background-color:#CCCCCC">
-              <h3 class="modal-title fs-5 upperCaseLbl" id="exampleModalLongTitle">Edit ${tabName}</h3>
+            <div class="modal-header" style="background-color:white">
+              <h3 class="modal-title fs-5" id="exampleModalLongTitle">Edit ${tabName}</h3>
               <button class="btn-close" type="button" data-bs-dismiss="modal" aria-label="Close"></button>
             </div>`
           }
           <div class="modal-toggle-wrapper social-profile text-start dark-sign-up">
             <div class="modal-body">
-              <form id="editForm" class="row g-3 needs-validation" novalidate>
+              <form id="editForm" data-tab-name='${tabName}'  data-editId ='${editData[editIdval]}' class="row g-3 needs-validation" novalidate>
                 ${inputFields}
                 <div class="col-md-12" style="text-align: center;">
                   <div id="EditModalResp" style="margin-bottom:10px"></div>   
-                  <button type="submit" class="btn btn-primary upperCaseLbl">Update ${tabName}</button>
+                  <button type="submit" class="btn btn-primary">Update ${tabName}</button>
                 </div>
               </form>
             </div>
@@ -84,18 +96,28 @@ function validateEmail(email) {
   return re.test(String(email).toLowerCase());
 }
 
+const convertImageToBase64 = (file) => {
+  return new Promise((resolve, reject) => {
+    const reader = new FileReader();
+    reader.onload = () => resolve(reader.result);
+    reader.onerror = error => reject(error);
+    reader.readAsDataURL(file);
+  });
+};
+
 // Event listener for form submission
 document.addEventListener("DOMContentLoaded", () => {
   const observer = new MutationObserver((mutationsList, observer) => {
     const editForm = document.getElementById('editForm');
     if (editForm) {
       console.log("editForm", editForm);
-
-      // Add event listener for form submission
-      editForm.addEventListener('submit', function (event) {
+      const tabName = editForm.dataset.tabName;
+      const editId = editForm.dataset.editid;
+      console.log(editId, "dvcgdvcgdvcgdvcdvcghdvcydvhcvdcgvdcd");
+      editForm.addEventListener('submit', async function (event) {
         event.preventDefault(); // Prevent the form from submitting
 
-        // Validate required fields
+        let updatedData = {}; // Object to store updated values
         const requiredFields = editForm.querySelectorAll('[required]');
         let isValid = true;
 
@@ -108,7 +130,6 @@ document.addEventListener("DOMContentLoaded", () => {
           }
         });
 
-        // Validate email fields
         const emailFields = editForm.querySelectorAll('input[type="email"]');
         emailFields.forEach(emailField => {
           const emailValue = emailField.value.trim();
@@ -120,22 +141,37 @@ document.addEventListener("DOMContentLoaded", () => {
           }
         });
 
-        // If all validations pass, submit the form
         if (isValid) {
           console.log('Form is valid. Submitting...');
-          // Perform your form submission logic here
-          // editForm.submit(); // Uncomment this line to actually submit the form
+
+          editForm.querySelectorAll('input, select').forEach(input => {
+            updatedData[input.id] = input.value;
+          });
+
+          // Handle Image Upload
+          const imageInput = editForm.querySelector('input[type="file"]');
+          let base64Image = null;
+          if (imageInput && imageInput.files.length > 0) {
+            const file = imageInput.files[0];
+            base64Image = await convertImageToBase64(file);
+            updatedData[imageInput.id] = base64Image;
+          }
+
+          console.log('Updated Data:', updatedData);
+
+          // Call EditProduct with updated values
+          EditProduct(updatedData, tabName, editId);
         } else {
           console.log('Form is invalid. Please correct the errors.');
         }
       });
-
       observer.disconnect();
     }
   });
 
   observer.observe(document.body, { childList: true, subtree: true });
 });
+
 
 // Function to get dropdown values
 async function getDropdownVal(inputid, selectedValue) {

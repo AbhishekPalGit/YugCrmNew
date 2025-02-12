@@ -1,37 +1,46 @@
 
 let curUrl = (window.location.href).includes('localhost')? "https://chachret.com/crm/api/v1/" :`${window.location.protocol}//${window.location.host}/crm/api/v1/`
 export const Frontconstants ={
-    "company": {
+   "company": {
         getApiUrl: curUrl + 'company/getCompanyList',
         addApiUrl: curUrl + 'company/addCompany',
         delApiUrl: curUrl + 'company/deleteCompany',
+        updateApiUrl: curUrl + 'company/updateCompany',
         getApiName: "getCompanyList",
         delApiName: "deleteCompany",
-        addApiName: "addCompany"
+        addApiName: "addCompany",
+        updateApiName: "updateCompany"
+
     },
     "site":{
         getApiUrl: curUrl + 'site/getSiteList',
         addApiUrl: curUrl + 'site/addSite',
         delApiUrl: curUrl + 'site/deleteSite',
+        updateApiUrl: curUrl + 'site/updateSite',
         getApiName: "getSiteList",
         delApiName: "deleteSite",
-        addApiName: "addSite"
+        addApiName: "addSite",
+        updateApiName: "updateSite"
     },
     "users":{
         getApiUrl: curUrl + 'user/getUserList',
         addApiUrl: curUrl + 'user/addUser',
         delApiUrl: curUrl + 'user/deleteUser',
+        updateApiUrl: curUrl + 'user/updateUser',
         getApiName: "getUserList",
         delApiName: "deleteUser",
-        addApiName: "addUser"
+        addApiName: "addUser",
+        updateApiName: "updateUser"
     },
     "product":{
         getApiUrl: curUrl + 'product/getProductList',
         addApiUrl: curUrl + 'product/addProduct',
-        delApiUrl: curUrl + 'product/deleteProduct',
+        delApiUrl: curUrl + 'product/deleteProuct',
+        updateApiUrl: curUrl + 'product/updateProduct',
         getApiName: "getProductList",
-        delApiName: "deleteProduct",
-        addApiName: "addProduct"
+        delApiName: "deleteCompany",
+        addApiName: "addProduct",
+        updateApiName: "updateProduct"
     },
     "pendingCart":{
       getApiUrl: curUrl + 'product/getCartDetail',
