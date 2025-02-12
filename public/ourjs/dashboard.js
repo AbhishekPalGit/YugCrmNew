@@ -407,7 +407,7 @@ LogoutUser.addEventListener('click',async()=>{
      await saveCart("saveCart","save", true)
   }else{
     // localStorage.setItem('__pledge',null)
-    localStorage.removeItem("__pledge");
+    localStorage.clear();
     window.location.href = '/'; 
   }
  
