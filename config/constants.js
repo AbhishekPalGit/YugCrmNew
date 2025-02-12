@@ -26,11 +26,19 @@ module.exports = {
         "11": "Mustard",
         "12": "Other",
     },
+    // "zeptoMailConfig" : {
+    //     "kylium"
+    //     "host": "smtp.zeptomail.in",
+    //     "port": 587,
+    //     "user": "emailapikey",
+    //     "pass": "PHtE6r1eRu7tjzYtpEIAtPCxEZWtNo59/+4zeQVOsIoRXKNSH01QqdF4wTK3ok0rA/QUQf/Oyt1qtLOYur2DIz7qZz5JWWqyqK3sx/VYSPOZsbq6x00asF8efkLdUYLnc9Fr1SDTv9jfNA=="
+    // },
     "zeptoMailConfig" : {
+        // "Chachret"
         "host": "smtp.zeptomail.in",
         "port": 587,
         "user": "emailapikey",
-        "pass": "PHtE6r1eRu7tjzYtpEIAtPCxEZWtNo59/+4zeQVOsIoRXKNSH01QqdF4wTK3ok0rA/QUQf/Oyt1qtLOYur2DIz7qZz5JWWqyqK3sx/VYSPOZsbq6x00asF8efkLdUYLnc9Fr1SDTv9jfNA=="
+        "pass": "PHtE6r1ZRO7s3WQp9BlT7aftRc+kMYMu+Ok2fVVFs48TWKACFk1R+dF9mmXh+R4pUvJLEfaYyIo7uL6ft7rWLGjkZzlPXWqyqK3sx/VYSPOZsbq6x00ct10cdkDZUIDmct5r1iHSvteX"
     },
     "roles" : {
         "SA": {

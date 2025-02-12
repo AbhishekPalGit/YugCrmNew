@@ -632,7 +632,7 @@ const sendZeptoEmail = async (to, subject, html) => {
         });
 
         var mailOptions = {
-            from: '"Chachret Suppot" <noreply@kylium.com>',
+            from: '"Chachret Suppot" <noreply@chachret.com>',
             to: to,
             subject: subject,
             html: html,
@@ -674,8 +674,7 @@ exports.sendEmail = async (req, res) => {
             }
             try {
                 const result = await sendZeptoEmail(to, subject, html);
-                console.log("result==>>>>>>", result);
-
+                
                 if (result.success) {
                     res.status(200).json({ 
                         success: true, 
