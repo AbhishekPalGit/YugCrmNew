@@ -406,7 +406,8 @@ LogoutUser.addEventListener('click',async()=>{
   if(localStorage.getItem("UserSpec") == "SS"){
      await saveCart("saveCart","save", true)
   }else{
-    localStorage.setItem('__pledge',null)
+    // localStorage.setItem('__pledge',null)
+    localStorage.removeItem("__pledge");
     window.location.href = '/'; 
   }
  

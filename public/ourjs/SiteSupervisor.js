@@ -659,7 +659,8 @@ export async function saveCart(tabName,type ,logout) {
           if (Apidata["status"] === "success") {
             // alert(`data ${type} succesfully`)
             if(logout){
-                localStorage.setItem('__pledge',null)
+                // localStorage.setItem('__pledge',null)
+                localStorage.removeItem("__pledge");
                 window.location.href = '/'; 
             }
             cartBadge.innerHTML = JSON.parse(localStorage.getItem("cartArr")).length
@@ -667,7 +668,8 @@ export async function saveCart(tabName,type ,logout) {
           } 
         }
         if(logout){
-            localStorage.setItem('__pledge',null)
+            // localStorage.setItem('__pledge',null)
+            localStorage.removeItem("__pledge");
             window.location.href = '/'; 
         }
     } catch (error) {
