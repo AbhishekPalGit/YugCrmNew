@@ -58,7 +58,7 @@ export const AddModal = (inputArr, tabName) => {
               <h3 class="modal-title fs-5 upperCaseLbl" id="exampleModalLongTitle">Add ${tabName}</h3>
               <button class="btn-close " type="button" data-bs-dismiss="modal" aria-label="Close"></button>
             </div>` : `
-            <div class="modal-header" style="background-color:black">
+            <div class="modal-header" style="background-color:#CCCCCC">
               <h3 class="modal-title fs-5 upperCaseLbl" id="exampleModalLongTitle">Add ${tabName}</h3>
               <button class="btn-close " type="button" data-bs-dismiss="modal" aria-label="Close"></button>
             </div>`

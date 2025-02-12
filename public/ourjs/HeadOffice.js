@@ -821,7 +821,7 @@ window.viewSpecificCartHo = function (gotdata, index) {
     return `<tr>
               ${tableHeaders.map((key) => {
                 // Check if the key is hsncode and hide it initially
-                if (key === 'hsncode' || key === 'HSN Code') {
+                if (key === 'CPN') {
                   return `
                     <td>
                       <span id="hsn-${index}" style="display:none">${item[key]}</span>

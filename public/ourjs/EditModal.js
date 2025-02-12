@@ -48,7 +48,7 @@ export const EditModal = (editData, tabName) => {
               <h3 class="modal-title fs-5 upperCaseLbl" id="exampleModalLongTitle">Edit ${tabName}</h3>
               <button class="btn-close" type="button" data-bs-dismiss="modal" aria-label="Close"></button>
             </div>` : `
-            <div class="modal-header" style="background-color:black">
+            <div class="modal-header" style="background-color:#CCCCCC">
               <h3 class="modal-title fs-5 upperCaseLbl" id="exampleModalLongTitle">Edit ${tabName}</h3>
               <button class="btn-close" type="button" data-bs-dismiss="modal" aria-label="Close"></button>
             </div>`

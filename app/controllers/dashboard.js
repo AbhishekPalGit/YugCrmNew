@@ -263,9 +263,11 @@ exports.getHODashboard = async (req, res) => {
                             'Item Name': row.productname,
                             'Item Description': row.productdesc,
                             'Brand': row.brand,
-                            'HSN Code': row.hsncode,
+                            'CPN' : row.CPN,
+                            'HSN': row.hsncode,
                             'Quantity': row.qty,
                             'Rate': row.uomprice,
+                            'GST' : row.gstext + '%',
                             // 'Amount (QtyXRate)': parseInt(row.uomprice) * parseInt(row.qty),
                             'UOM': row.uom,
                         });

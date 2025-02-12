@@ -222,14 +222,21 @@ exports.addUpdCartItems = async function(post) {
     }
     try {
         for (const item of post.items) {
-          const { pid, qty, UOM, Rate } = item;
+            if (post.source == 'PM') {
+                var pid = item.pid;
+                var quantity = item.qty;
+                var uom = item.UOM;
+                var uomprice = item.Rate;
+            } else {
+                var { pid, quantity, uom, uomprice } = item;
+            }
           await database.query(
             "INSERT INTO cartitemdet (cartid, pid, qty, uom, uomprice, isdeleted, isactive, createddt, createdby, createdip) VALUES ("+
             post.cartId + "," +
             pid + " , " + 
-            qty + " , '" + 
-            UOM + "' , " + 
-            Rate + " , " + 
+            quantity + " , '" + 
+            uom + "' , " + 
+            uomprice + " , " + 
             "0" + ", " +
             "1" + " , '" +
             constants.currentDateTime + "', '" +
@@ -237,9 +244,9 @@ exports.addUpdCartItems = async function(post) {
             post.IpAddress + " ') " +
             "ON DUPLICATE KEY UPDATE " +
             "isdeleted = 0 , " +
-            "qty = " + qty + ", " +
-            "uom = '" + UOM + "', " +
-            "uomprice = " + Rate + ", " +
+            "qty = " + quantity + ", " +
+            "uom = '" + uom + "', " +
+            "uomprice = " + uomprice + ", " +
             "updateddt = '" + constants.currentDateTime + "', " +
             "updatedby = '" + post.emailId + "', "+
             "updatedip = '" + post.IpAddress + "'"
