@@ -209,7 +209,7 @@ exports.updateUser = async function(post) {
              passStr = "usrpass = '"+ post.usrpass +"',";
         };
 
-        var queryStr = "UPDATE usermaster SET fname ='"+ post.fname +"', lname ='"+ post.lname +"', emailid = '"+ post.email +"', mobileno ='"+ post.mobileno +"'," + passStr + "updatedip = '"+ post.IpAddress +"', updatedby = '"+ post.emailId +"', updateddt = '"+ constants.currentDateTime +"' WHERE usrid = " + post.usrid + " AND isactive = 1"; 
+        var queryStr = "UPDATE usermaster SET isactive = 1, fname ='"+ post.fname +"', lname ='"+ post.lname +"', emailid = '"+ post.email +"', mobileno ='"+ post.mobileno +"'," + passStr + "updatedip = '"+ post.IpAddress +"', updatedby = '"+ post.emailId +"', updateddt = '"+ constants.currentDateTime +"' WHERE usrid = " + post.usrId + ";"; 
 
         let updUser = await database.query(queryStr, {}, {
                 type: Sequelize.QueryTypes.SELECT,

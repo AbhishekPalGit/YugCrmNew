@@ -35,10 +35,10 @@ export const Frontconstants ={
     "product":{
         getApiUrl: curUrl + 'product/getProductList',
         addApiUrl: curUrl + 'product/addProduct',
-        delApiUrl: curUrl + 'product/deleteProuct',
+        delApiUrl: curUrl + 'product/deleteProduct',
         updateApiUrl: curUrl + 'product/updateProduct',
         getApiName: "getProductList",
-        delApiName: "deleteCompany",
+        delApiName: "deleteProduct",
         addApiName: "addProduct",
         updateApiName: "updateProduct"
     },
@@ -282,7 +282,7 @@ export const InputObj = {
           label: "Image",
           type: "file",
           placeholder: "Upload Image",
-          required: true,
+          required: false,
           id: "Img",
         },
       ]

@@ -53,7 +53,7 @@ exports.updateCompany = async function(post) {
         'data': "Something went wrong. Please try again later"
     }
     try {
-        let updCompany = await database.query("UPDATE constcompmaster SET ccname = '"+ post.companyName +"', updatedby = '"+ post.emailId +"', updatedip = '"+ post.IpAddress +"', updateddt = '"+ constants.currentDateTime +"' WHERE ccid = " + post.companyId + " AND isactive = 1", {}, {
+        let updCompany = await database.query("UPDATE constcompmaster SET isactive = 1, ccname = '"+ post.companyName +"', updatedby = '"+ post.emailId +"', updatedip = '"+ post.IpAddress +"', updateddt = '"+ constants.currentDateTime +"' WHERE ccid = " + post.companyId + ";", {}, {
                 type: Sequelize.QueryTypes.SELECT,
         });
         result = {

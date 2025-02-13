@@ -184,12 +184,14 @@ exports.updateProduct = async (req, res) => {
             result.message = 'Please Prvoide Required Details.';
         } else if (body.api_name == "" || body.api_name == undefined || body.api_name != "updateProduct") {
             result.message = 'Invlaid API';
+        } else if (body.pid == "" || body.pid ==  undefined) {
+            result.message = 'Provide Product Id';
         } else if (body.ProductName == "" || body.ProductName ==  undefined) {
-            result.message = 'Provide product name';
+            result.message = 'Provide Product Name';
         } else if (body.ProductDesc == "" || body.ProductDesc ==  undefined) {
-            result.message = 'Provide product description';
+            result.message = 'Provide Product Description';
         } else if (body.brand == "" || body.brand ==  undefined) {
-            result.message = 'Provide brand';
+            result.message = 'Provide Brand';
         } else if (body.HsnCode == "" || body.HsnCode ==  undefined) {
             result.message = 'Provide HSN Code';
         } else if (body.Gst == "" || body.Gst ==  undefined) {
@@ -207,7 +209,7 @@ exports.updateProduct = async (req, res) => {
                 body.ImgPath = 'defaultImg.png';
                 var productDet = await productModel.updateProduct(body);
                 if (productDet.status == "success") {
-                    if (productDet.data > 0) {
+                    if (productDet.data.affectedRows > 0) {
                         result = {
                             'status': "success",
                             'message': 'Data saved successfully',

@@ -53,7 +53,7 @@ exports.updateSite = async function(post) {
         'data': "Something went wrong. Please try again later"
     }
     try {
-        let updSite = await database.query("UPDATE constsitemaster SET csname = '"+ post.siteName +"', ccid = "+ post.companyId +", updatedby = '"+ post.emailId +"', updatedip = '"+ post.IpAddress +"', updateddt = '"+ constants.currentDateTime +"' WHERE csid = " + post.siteId + " AND isactive = 1", {}, {
+        let updSite = await database.query("UPDATE constsitemaster SET isactive = 1, csname = '"+ post.siteName +"', ccid = "+ post.companyId +", updatedby = '"+ post.emailId +"', updatedip = '"+ post.IpAddress +"', updateddt = '"+ constants.currentDateTime +"' WHERE csid = " + post.siteId + ";", {}, {
                 type: Sequelize.QueryTypes.SELECT,
         });
         result = {

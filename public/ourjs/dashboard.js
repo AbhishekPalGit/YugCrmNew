@@ -340,7 +340,8 @@ EditItems.forEach((item, index) => {
 let deleteIdKey = {
   company: "companyId",
   site: "siteId",
-  product: "productId"
+  product: "productId",
+  users:"usrId"
 };
 
 
@@ -419,15 +420,15 @@ let EditIdKey = {
   product: "productId",
   keyVal :{
     product:"pid",
-    company:"ccid",
+    company:"companyId",
     site:"siteId",
-    user:"usrId",
+    users:"usrId",
   }
 };
 
 export async function EditProduct(obj, tabName , editId) {
   console.log((obj),"hbxhdcbdhcbdhcbdcd", tabName)
-  const editKey = EditIdKey[tabName]; // e.g., "companyId"
+  const editKey = EditIdKey['keyVal'][tabName]; // e.g., "companyId"
   
   let payload = {
     api_name: Frontconstants[tabName].updateApiName,

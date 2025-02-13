@@ -11,12 +11,12 @@ let EditIdKey = {
     'product':"pid",
     "company":"ccid",
     "site":"siteId",
-    "user":"usrId",
+    "users":"usrId",
   }
 };
 export const EditModal = (editData, tabName) => {
   let inputArr = InputObj[tabName];
-  let editIdval = EditIdKey.keyVal[tabName]
+  let editIdval = EditIdKey['keyVal'][tabName]
   console.log(inputArr,editData, "Input Array for Edit Modal",editData[editIdval]);
   const inputFields = inputArr.map((input) => {
     const value = editData[input.id] || editData[input.val] || ""; // Get the value from editData or default to empty string

@@ -254,7 +254,7 @@ exports.updateUser = async (req, res) => {
             result.message = "Provide mobile number";
         } else if (body.roleId == "" || body.roleId == undefined){
             result.message = "Provide role Id";
-        } else if (body.usrid == "" || body.usrid == undefined){
+        } else if (body.usrId == "" || body.usrId == undefined){
             result.message = "Provide user Id";
         } else {
 
@@ -270,8 +270,6 @@ exports.updateUser = async (req, res) => {
             body.fname = first;
             body.lname = second;
             delete body.name;
-            console.log("body", body);
-            return false;
 
             var userUpdDet = await userModel.updateUser(body);
             if (userUpdDet.status == "success") {
@@ -307,11 +305,12 @@ exports.deleteUser = async (req, res) => {
         'data' : ""
     }
     try {
+        console.log("body=>>>>>>>>>>", body);
         if (Object.keys(body).length == 0) {
             result.message = 'Please Prvoide Required Details.';
         } else if (body.api_name == "" || body.api_name == undefined || body.api_name != "deleteUser") {
             result.message = 'Invlaid API';
-        } else if (body.userId == "" || body.userId == undefined) {
+        } else if (body.usrId == "" || body.usrId == undefined) {
             result.message = 'Provide user Id';
         } else {
             var userDltDet = await userModel.deleteUser(body);

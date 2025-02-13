@@ -62,7 +62,7 @@ exports.updateProduct = async function(post) {
         'data': "Something went wrong. Please try again later"
     }
     try {
-        let updSite = await database.query("UPDATE productmaster SET productname = '" + post.ProductName + "', productdesc = '" + post.ProductDesc + "', brand = '" + post.brand + "', hsncode = " + post.HsnCode + ", gstext = " + post.Gst + ", imagelink = '" + post.ImgPath + "', CPN = '" + post.CPN + "', uom = '" + post.UOM + "', uomprice = " + post.price + ", ccid = " + post.companyId + ", isactive = 1, updatedby = '"+ post.emailId +"', updatedip = '"+ post.IpAddress +"', updateddt = '"+ constants.currentDateTime +"' WHERE pid = " + post.productId + ";", {}, {
+        let updSite = await database.query("UPDATE productmaster SET productname = '" + post.ProductName + "', productdesc = '" + post.ProductDesc + "', brand = '" + post.brand + "', hsncode = " + post.HsnCode + ", gstext = " + post.Gst + ", imagelink = '" + post.ImgPath + "', CPN = '" + post.CPN + "', uom = '" + post.UOM + "', uomprice = " + post.price + ", ccid = " + post.companyId + ", isactive = 1, updatedby = '"+ post.emailId +"', updatedip = '"+ post.IpAddress +"', updateddt = '"+ constants.currentDateTime +"' WHERE pid = " + post.pid + ";", {}, {
                 type: Sequelize.QueryTypes.SELECT,
         });
         result = {
