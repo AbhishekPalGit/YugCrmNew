@@ -209,14 +209,10 @@ exports.updateProduct = async (req, res) => {
                 body.ImgPath = 'defaultImg.png';
                 var productDet = await productModel.updateProduct(body);
                 if (productDet.status == "success") {
-                    if (productDet.data.affectedRows > 0) {
-                        result = {
-                            'status': "success",
-                            'message': 'Data saved successfully',
-                            'data' : productDet.data
-                        }
-                    } else {
-                        result.message = 'Error saving data';
+                    result = {
+                        'status': "success",
+                        'message': 'Data saved successfully',
+                        'data' : productDet.data
                     }
                 } else {
                     result.message = productDet.data;
@@ -248,13 +244,9 @@ exports.updateProduct = async (req, res) => {
                             body.ImgPath = fileName;
                             var productDet = await productModel.updateProduct(body);
                             if (productDet.status == "success") {
-                                if (productDet.data.affectedRows > 0) {
-                                    result = {
-                                        'status': "success",
-                                        'message': 'Data updated successfully'
-                                    }
-                                } else {
-                                    result.message = 'Error saving data';
+                                result = {
+                                    'status': "success",
+                                    'message': 'Data updated successfully'
                                 }
                             } else {
                                 result.message = productDet.data;

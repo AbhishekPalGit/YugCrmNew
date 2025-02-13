@@ -273,14 +273,10 @@ exports.updateUser = async (req, res) => {
 
             var userUpdDet = await userModel.updateUser(body);
             if (userUpdDet.status == "success") {
-                if (userUpdDet.data.affectedRows > 0) {
-                    result = {
-                        'status': "success",
-                        'message': 'Data updated successfully',
-                        'data' : userUpdDet.data.affectedRows
-                    }
-                } else {
-                    result.message = 'Error Updating data. Try again';
+                result = {
+                    'status': "success",
+                    'message': 'Data updated successfully',
+                    'data' : userUpdDet.data.affectedRows
                 }
             } else {
                 result.message = userUpdDet.data;

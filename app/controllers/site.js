@@ -100,14 +100,10 @@ exports.updateSite = async (req, res) => {
         } else {
             var siteUpdDet = await siteModel.updateSite(body);
             if (siteUpdDet.status == "success") {
-                if (siteUpdDet.data.affectedRows > 0) {
-                    result = {
-                        'status': "success",
-                        'message': 'Data updated successfully',
-                        'data' : siteUpdDet.data.affectedRows
-                    }
-                } else {
-                    result.message = 'Error Updating data. Try again';
+                result = {
+                    'status': "success",
+                    'message': 'Data updated successfully',
+                    'data' : siteUpdDet.data.affectedRows
                 }
             } else {
                 result.message = siteUpdDet.data;

@@ -100,14 +100,10 @@ exports.updateCompany = async (req, res) => {
         } else {
             var companyUpdDet = await compnayModel.updateCompany(body);
             if (companyUpdDet.status == "success") {
-                if (companyUpdDet.data.affectedRows > 0) {
-                    result = {
-                        'status': "success",
-                        'message': 'Data updated successfully',
-                        'data' : companyUpdDet.data.affectedRows
-                    }
-                } else {
-                    result.message = 'Error Updating data. Try again';
+                result = {
+                    'status': "success",
+                    'message': 'Data updated successfully',
+                    'data' : companyUpdDet.data.affectedRows
                 }
             } else {
                 result.message = companyUpdDet.data;
