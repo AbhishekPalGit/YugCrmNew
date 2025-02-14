@@ -43,11 +43,13 @@ exports.getSSDashboard = async (req, res) => {
                           'Item Name': row.productname,
                           'Item Description': row.productdesc,
                           'Brand': row.brand,
-                          'HSN Code': row.hsncode,
+                          'HSN': row.hsncode,
+                          'CPN' : row.CPN,
                           'Quantity': row.qty,
                           'Rate': row.uomprice,
                           // 'Amount (QtyXRate)': parseInt(row.uomprice) * parseInt(row.qty),
                           'UOM': row.uom,
+                          'GST' : row.gstext + '%'
                         });
                       }
                     });
@@ -147,11 +149,13 @@ exports.getPMDashboard = async (req, res) => {
                             'Item Name': row.productname,
                             'Item Description': row.productdesc,
                             'Brand': row.brand,
-                            'HSN Code': row.hsncode,
+                            'HSN': row.hsncode,
+                            'CPN' : row.CPN,
                             'qty': row.qty,
                             'Rate': row.uomprice,
                             // 'Amount (QtyXRate)': parseInt(row.uomprice) * parseInt(row.qty),
                             'UOM': row.uom,
+                            'GST' : row.gstext + '%'
                         });
                       }
                     });
@@ -263,8 +267,8 @@ exports.getHODashboard = async (req, res) => {
                             'Item Name': row.productname,
                             'Item Description': row.productdesc,
                             'Brand': row.brand,
-                            'CPN' : row.CPN,
                             'HSN': row.hsncode,
+                            'CPN' : row.CPN,
                             'Quantity': row.qty,
                             'Rate': row.uomprice,
                             'GST' : row.gstext + '%',

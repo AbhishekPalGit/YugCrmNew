@@ -334,7 +334,7 @@ exports.addUpdateCart = async (req, res) => {
             result.message = 'Invlaid API';
         } else if (body.action == "" || body.action == undefined || !['submit', 'save'].includes(body.action)) {
             result.message = 'Provide valid action';
-        } else if (body.items == "" || body.items == undefined || !Array.isArray(body.items) || body.items.length == 0) {
+        } else if (body.items == "" || body.items == undefined) {
             result.message = 'Provide Item deatils';
         } else {
             var users = await userModel.login(body);
@@ -626,7 +626,7 @@ const sendZeptoEmail = async (to, subject, html) => {
         });
 
         var mailOptions = {
-            from: '"Chachret Suppot" <noreply@chachret.com>',
+            from: '"Chachret Support" <noreply@chachret.com>',
             to: to,
             subject: subject,
             html: html,

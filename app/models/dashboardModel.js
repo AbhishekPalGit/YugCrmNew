@@ -24,7 +24,9 @@ exports.getSSDashboard = async function(post) {
                 pm.brand,
                 pm.hsncode,
                 pm.uom,
-                pm.uomprice
+                pm.uomprice,
+                pm.CPN,
+                pm.gstext
             FROM cartmaster cm
                 JOIN constsitemaster cs ON cm.csid = cs.csid
                 LEFT JOIN cartitemdet cid ON cm.cartid = cid.cartid AND cid.isdeleted = 0 AND cid.isactive = 1
@@ -74,7 +76,9 @@ exports.getPMDashboard = async function(post) {
                 pm.brand,
                 pm.hsncode,
                 pm.uom,
-                pm.uomprice
+                pm.uomprice,
+                pm.CPN,
+                pm.gstext
             FROM cartmaster cm
                 JOIN constsitemaster cs ON cm.csid = cs.csid
                 LEFT JOIN cartitemdet cid ON cm.cartid = cid.cartid AND cid.isdeleted = 0 AND cid.isactive = 1
@@ -105,7 +109,9 @@ exports.getPMDashboard = async function(post) {
                 pm.brand,
                 pm.hsncode,
                 pm.uom,
-                pm.uomprice
+                pm.uomprice,
+                pm.CPN,
+                pm.gstext
             FROM ordermaster o
                 JOIN constsitemaster cs ON o.csid = cs.csid
                 LEFT JOIN cartitemdet cid ON o.cartid = cid.cartid AND cid.isdeleted = 0 AND cid.isactive = 1

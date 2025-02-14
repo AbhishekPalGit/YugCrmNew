@@ -513,6 +513,7 @@ export async function getSiteSuperData(data){
 
                   // Clear localStorage after a successful API call
                   localStorage.setItem("cartArr", JSON.stringify([]));
+                  cartBadge.innerHTML = JSON.parse(localStorage.getItem('cartArr')).length;
                   cartTablehead.innerHTML= ""
                   cartTablebody.innerHTML = `<h6> Yor Cart Submitted Succesfully </h6>`
                 } catch (error) {
