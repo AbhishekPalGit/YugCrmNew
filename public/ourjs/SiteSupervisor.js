@@ -203,18 +203,15 @@ const renderProducts = (filteredData) => {
   </div>
   <div class="modal fade" id="exampleModalCenter" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenter" aria-hidden="true">
     <div class="modal-dialog modal-lg modal-dialog-centered" role="document">
-     <div class="modal-content" style="background-color:${localStorage.getItem("mode") == "light" ? "#cccccc":"black"}">
+     <div class="modal-content" style="background-color:${localStorage.getItem("mode") == "dark-only" ? "black":"#cccccc"}">
         <div class="modal-header border-bottom-0">
           <div class="product-box row">
-            <div class="product-img col-lg-6" id=proddetImg></div>
+            <div class="product-img col-lg-6" style="text-align: center;" id=proddetImg></div>
             <div class="product-details col-lg-6 text-start">
-                <h4 id="viewProddet">${data.productname}</h4>
-              <div class="product-view">
+                <h4 id="viewProddet" style="border-bottom: ${localStorage.getItem("mode") == "dark-only" ? "1px dotted #cccccc;":"1px dotted black;"}">${data.productname}</h4>
+              <div class="product-view" style="border-bottom: ${localStorage.getItem("mode") == "dark-only" ? "1px dotted #cccccc;":"1px dotted black;"}">
                 <h6 class="f-w-700" id="viewProddesc">${data.productdesc}</h6>
-
               </div>
-              
-              
             </div>
           </div>
           <button class="btn-close" type="button" data-bs-dismiss="modal" aria-label="Close"></button>

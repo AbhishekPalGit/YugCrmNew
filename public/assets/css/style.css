@@ -41052,8 +41052,8 @@ p.data-attributes svg {
 }
 
 .product-wrapper .product-grid .product-wrapper-grid .product-box .modal .modal-header .product-box .product-details .product-view {
-  border-bottom: 1px dotted var(--gray2);
-  border-top: 1px dotted var(--gray2);
+  border-bottom: 1px dotted black;
+  border-top: 1px dotted black;
   padding: 20px 0
 }
 
