@@ -12,7 +12,7 @@ var session = require('express-session');
 var bodyParser = require('body-parser');
 const xssFilter = require('x-xss-protection');
 var cors = require('cors');
-var request = require('http'); 
+var request = require('http');
 
 app.use(xssFilter());
 
