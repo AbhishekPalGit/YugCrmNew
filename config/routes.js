@@ -2,6 +2,7 @@ var express = require('express');
 var path = require('path');
 var app = express();
 var middlware = require('../config/middleware');
+// const upload = require('../config/multerConfig');
 var authCtrl = require('../app/controllers/authCtrl');
 var companyCtrl = require('../app/controllers/company');
 var siteCtrl = require('../app/controllers/site');
@@ -41,6 +42,7 @@ module.exports = function (app) {
 	// Product Module
 	app.post('/crm/api/v1/product/getProductList', middlware, productCtrl.getProductList);
 	app.post('/crm/api/v1/product/addProduct', middlware, productCtrl.addProduct);
+	app.post('/crm/api/v1/product/addBulkProduct', middlware, productCtrl.addBulkProduct);
 	app.post('/crm/api/v1/product/updateProduct', middlware, productCtrl.updateProduct);
 	app.post('/crm/api/v1/product/deleteProduct', middlware, productCtrl.deleteProduct);
 	app.post('/crm/api/v1/product/addUpdateCart', middlware, productCtrl.addUpdateCart);

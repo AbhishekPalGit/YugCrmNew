@@ -1,7 +1,7 @@
 {
   "name": "app",
   "version": "0.0.0",
-  "main":"app.js",
+  "main": "app.js",
   "private": true,
   "dependencies": {
     "aes-js": "^3.1.2",
@@ -19,6 +19,7 @@
     "crypto": "^1.0.1",
     "dateformat": "latest",
     "ejs": "~2.3.3",
+    "exceljs": "^4.4.0",
     "express": "^4.16.4",
     "express-session": "latest",
     "ftp": "^0.3.10",

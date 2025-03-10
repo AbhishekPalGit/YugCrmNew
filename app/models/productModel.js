@@ -56,6 +56,43 @@ exports.addProduct = async function(post) {
     return result;
 }
 
+exports.addBulkProduct = async function(post) {
+    var result = {
+        'status': "failed",
+        'data': "Something went wrong. Please try again later"
+    }
+    var insertedRowCount = 0;
+    try {
+        post.forEach(function (product) {
+            let insertProd = database.query("INSERT INTO productmaster (productname, productdesc, brand, hsncode, gstext, imagelink, CPN, uom, uomprice, ccid, isactive, createddt, createdby, createdip) VALUES ('" +
+            product.productname + "', '" +
+            product.productdesc + "', '" +
+            product.brand + "', '" +
+            product.hsncode + "', '" +
+            product.gstext + "', '" +
+            product.imagelink + "', " +
+            product.CPN + ", '" +
+            product.uom + "', " +
+            product.uomprice + ", " +
+            product.companyId + ", " +
+            "1" + ", '" +
+            constants.currentDateTime + "', '" +
+            product.createdby + "', '" +
+            product.createdip + "');" , {}, {
+                type: Sequelize.QueryTypes.SELECT,
+            });
+            insertedRowCount = insertedRowCount + 1;
+        });
+        result = {
+            'status': "success",
+            'data': insertedRowCount
+        }
+    } catch (error) {
+        result.data = error;
+    }
+    return result;
+}
+
 exports.updateProduct = async function(post) {
     var result = {
         'status': "failed",

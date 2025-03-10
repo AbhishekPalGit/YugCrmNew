@@ -1,6 +1,8 @@
 const constants = require('../../config/constants.js');
+const database = require('../../config/database');
 const productModel = require('../models/productModel.js');
 const userModel = require('../models/userModel.js');
+const ExcelJS = require('exceljs');
 const nodemailer = require('nodemailer');
 const ejs = require('ejs');
 const path = require('path');
@@ -169,6 +171,73 @@ exports.addProduct = async (req, res) => {
             "data": "",
         }
         res.status(200).json(result);
+    }
+}
+
+exports.addBulkProduct = async (req, res) => {
+    try {
+        const { fileData, fileName, companyId } = req.body;
+
+        if (!fileData || !fileName) {
+            return res.status(400).json({ message: 'File data or filename is missing' });
+        }
+
+        // Convert Base64 to Buffer
+        const buffer = Buffer.from(fileData, 'base64');
+
+        // Save buffer to a temporary Excel file
+        const tempFilePath = `uploads/excel/product_${fileName}`;
+        fs.writeFileSync(tempFilePath, buffer);
+
+        const workbook = new ExcelJS.Workbook();
+        await workbook.xlsx.readFile(tempFilePath);
+        const worksheet = workbook.worksheets[0];
+
+        const products = [];
+        // Extract images from Excel
+        const imageMap = new Map();
+        workbook.model.media.forEach((media, index) => {
+            if (media.type === 'image') {
+                const imageName = `${Date.now()}-${index+2}.${media.extension}`;
+                const UPLOAD_DIR = path.resolve(__dirname, "../../public/products");
+                const filePath = path.join(UPLOAD_DIR, imageName);
+                fs.writeFile(filePath, media.buffer, "base64", (err) =>{});
+                imageMap.set(index+2, `${imageName}`);
+            }
+        });
+
+        worksheet.eachRow((row, rowNumber) => {
+            if (rowNumber > 1) { // Skip header row
+                const imageName = imageMap.get(rowNumber) || null;
+                const productData = {
+                    'productname' : row.getCell(1).value,
+                    'productdesc' : row.getCell(2).value,
+                    'brand' : row.getCell(3).value,
+                    'hsncode' : row.getCell(4).value,
+                    'gstext' : row.getCell(5).value,
+                    'uom' : row.getCell(6).value,
+                    'uomprice' : parseFloat(row.getCell(7).value),
+                    'CPN' : row.getCell(8).value,
+                    'imagelink' : imageName ? `${imageName}` : null,
+                    'companyId' : companyId,
+                    'isactive' : 1, //isactive
+                    'createddt' : constants.currentDateTime,
+                    'createdby' : req.body.emailId,
+                    'createdip' : req.body.IpAddress
+                };
+                products.push(productData);
+            }
+        });
+
+        var productDet = await productModel.addBulkProduct(products);
+        if (productDet.status == "success") {
+            res.status(200).json({ "status": "success", message: 'File processed successfully', insertedRows: productDet.data });
+        } else {
+            return res.status(500).json({ message: productDet.data});
+        }
+    } catch (error) {
+        console.error(error);
+        res.status(500).json({ "status": "failed", message: 'Error processing file', error: error.message });
     }
 }
 
