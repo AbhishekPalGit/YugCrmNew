@@ -12,8 +12,8 @@ import { EditModal } from "./EditModal.js";
 let Profile = document.querySelector('.user-content');
 let userInfo = JSON.parse(localStorage.getItem("UserInfo"))
 console.log(userInfo,"Profile",Profile)
-Profile.children[0].innerHTML = userInfo.fname +" "+ userInfo.lname
-Profile.children[1].innerHTML = userInfo.roleName 
+Profile.children[0].innerHTML = userInfo?.fname +" "+ userInfo?.lname  || ""
+Profile.children[1].innerHTML = userInfo?.roleName  || ""
 
 let Addbutton = document.getElementById("addButton");
 let dashboardHeading = document.getElementById("dashHead");
@@ -91,6 +91,7 @@ async function getMenulist() {
       item.addEventListener("click", () => setActiveTab(MenuArr[index], index));
     });
   } else {
+    window.location.href ="/"
     console.error("MainMenuSideBar element not found!");
   }
 }
@@ -193,6 +194,39 @@ Addbutton.addEventListener("click", () => {
 });
 
 
+const bulkUploadHandler= async(selectedTab, payloadArr)=>{
+
+    console.log(selectedTab, "bulk upload", payloadArr);
+    let payload = {
+      api_name: Frontconstants[selectedTab].bulkUploadApiName,
+    };
+    payloadArr.map((data) => {
+      payload[data.name] = data.value;
+    });
+    console.log("payloadvpayload", payload);
+
+    try {
+      const response = await Apicall(Frontconstants[selectedTab].bulkUploadApiUrl, "POST", payload);
+      if (response.status === "success") {
+        console.log("Uploaded succesFully");
+        const AddModalResp = document.getElementById("AddModalResp")
+        console.log("AddModalRespAddModalResp",AddModalResp)
+        AddModalResp.innerHTML += ` <div class="alert alert-light-success" role="alert">
+                            <p class="text-success">
+                               <a class="alert-link text-success" href="#"></a>${response.message}</p>
+                          </div>`
+        setTimeout(()=>{
+          location.reload()
+        },1500)                  
+        // alert("Company Added successfully");
+        // location.reload();
+      } else {
+        console.error("Error Uploading Data:", response.message);
+      }
+    } catch (error) {
+      console.error("Error calling Uploading API:", error);
+    }
+  };
 
 
 
@@ -213,6 +247,99 @@ async function getProduct(tabName) {
       let colArr = Object.keys(dataArr[0]);
       colArr.splice(0,1)
       // colArr.push('Action')
+      if(tabName === "product" ){
+        document.getElementById("BulkUploadbutt").style.display = "block"
+        document.getElementById("BulkUploadbutt").addEventListener("click",()=>{
+         let AddModalforBulk =  AddModal(InputObj["bulkUpload"],"product")
+         const mainWrapper = document.getElementById("mainWrapper");
+
+         // Remove existing modals before adding a new one
+         document.querySelectorAll(".modal").forEach((modal) => modal.remove());
+       
+         let webloader = document.querySelector(".loader-wrapper");
+         if (webloader && ActiveTab !== "company") {
+           webloader.style.display = "flex"; // Show loader
+         }
+       
+         mainWrapper.innerHTML += AddModalforBulk;
+         const addForm = document.getElementById("addForm");
+         setTimeout(() => {
+          const closeButton = document.querySelector(".btn-close");
+          if (closeButton) {
+              closeButton.addEventListener("click", () => {
+                  console.log("Close button clicked");
+                  window.location.reload();
+              });
+          }
+      }, 100);
+       
+         addForm.addEventListener("submit", async (e) => {
+          e.preventDefault();
+        
+          let isValid = true;
+          let formData = [];
+        
+          for (const el of addForm.elements) {
+            if (el.required && !el.value.trim()) {
+              el.classList.add("is-invalid");
+              isValid = false;
+            } else {
+              el.classList.remove("is-invalid");
+            }
+            let fileName =""
+            if (el.tagName === "SELECT") {
+              formData.push({
+                name: el.id,
+                value: el.value, // Store the selected value
+              });
+            }
+            // ✅ File input validation
+            if (el.type === "file" && el.files.length > 0) {
+              const file = el.files[0];
+              const fileName = file.name.toLowerCase();
+              const allowedExtensions = [".xls", ".xlsx"];
+              
+              // Check file extension
+              const isExcelFile = allowedExtensions.some(ext => fileName.endsWith(ext));
+            
+              if (!isExcelFile) {
+                alert("Invalid file type. Please upload an Excel file (.xls or .xlsx).");
+                isValid = false;
+                continue;
+              }
+            
+              formData.push({
+                name: el.id,
+                value: await convertImageToBase64(file), // Convert file to Base64
+              });
+              formData.push({
+                name: "fileName",
+                value: file.name // Convert file to Base64
+              });
+           
+            }
+        
+          if (!isValid) {
+            console.log("Form is invalid. Please fill all required fields correctly.");
+            return;
+          }
+        
+          console.log("Form is valid. Proceeding with API call...");
+          console.log("Filtered Data:", formData);
+        
+          // ✅ Call API only if form is valid
+          bulkUploadHandler("product", formData );
+        }
+        });
+        
+
+
+
+     }) }else {
+        document.getElementById("BulkUploadbutt").style.display = "none"
+
+      }
+      
       let tableCol = document.getElementById("tab-col");
       let tableBody = document.getElementById("product-removes");
       tableCol.innerHTML = "";

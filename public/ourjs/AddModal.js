@@ -13,7 +13,8 @@ export const AddModal = (inputArr, tabName) => {
             type="${input.type}" 
             class="form-control" 
             id="${input.id}"
-            accept="image/*" 
+            accept=".xls,.xlsx,application/vnd.ms-excel,application/vnd.openxmlformats-officedocument.spreadsheetml.sheet,
+               .png,.jpg,.jpeg,image/png,image/jpeg"
             ${input.required ? 'required' : ''}
           >
           ${input.required ? '<div class="invalid-feedback">This field is required.</div>' : ''}

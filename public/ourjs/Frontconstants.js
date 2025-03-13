@@ -9,7 +9,7 @@ export const Frontconstants ={
         getApiName: "getCompanyList",
         delApiName: "deleteCompany",
         addApiName: "addCompany",
-        updateApiName: "updateCompany"
+        updateApiName: "updateCompany",
 
     },
     "site":{
@@ -40,7 +40,11 @@ export const Frontconstants ={
         getApiName: "getProductList",
         delApiName: "deleteProduct",
         addApiName: "addProduct",
-        updateApiName: "updateProduct"
+        updateApiName: "updateProduct",
+        bulkUploadApiName:"addBulkProduct",
+        bulkUploadApiUrl: curUrl + "product/addBulkProduct",
+
+
     },
     "pendingCart":{
       getApiUrl: curUrl + 'product/getCartDetail',
@@ -284,6 +288,24 @@ export const InputObj = {
           placeholder: "Upload Image",
           required: false,
           id: "Img",
+        },
+      ],
+      bulkUpload:[
+        {
+          label: "Company ID",
+          type: "dropdown",
+          placeholder: "Enter Company ID",
+          required: true,
+          id: "companyId",
+          val:"ccname"
+        },
+        {
+          label: "Upload Bulk",
+          type: "file",
+          placeholder: "Upload excel file",
+          required: true,
+          id: "fileData",
+          val:"fileData"
         },
       ]
   };

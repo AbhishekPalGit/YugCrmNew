@@ -177,7 +177,7 @@ exports.addProduct = async (req, res) => {
 exports.addBulkProduct = async (req, res) => {
     try {
         const { fileData, fileName, companyId } = req.body;
-
+        console.log(fileData,"fileName",fileName)
         if (!fileData || !fileName) {
             return res.status(400).json({ message: 'File data or filename is missing' });
         }
