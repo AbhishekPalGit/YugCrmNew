@@ -44,7 +44,8 @@ async function SiteSupervisor(tabName){
       console.error("Error fetching company list:", error);
     }
 }
-function inCrementClick(obj, index){
+function inCrementClick(obj, index,ppp){
+  console.log("ProductData,ProductData",ppp)
     let pendingCartArr = localStorage.getItem("cartArr");
     console.log("sgvcgdxvc",obj)
     let tempCartArr = pendingCartArr ? JSON.parse(pendingCartArr) : []
@@ -233,8 +234,6 @@ const renderProducts = (filteredData) => {
                                 <use href="../assets/svg/iconly-sprite.svg#plus"></use>
                               </svg></span>
                           </div>
-
-
   </div>
 </div>
 </div>
@@ -263,29 +262,29 @@ let cartArr = JSON.parse(localStorage.getItem('cartArr')) || []
   });
 
 viewCart.forEach((item , i) =>{
-  item.addEventListener("click", () => setcartDetail(ProductData[i] , i));
+  item.addEventListener("click", () => setcartDetail(filteredData[i] , i));
 });
 viewCart2.forEach((item , i) =>{
-    item.addEventListener("click", () => setcartDetail(ProductData[i] , i));
+    item.addEventListener("click", () => setcartDetail(filteredData[i] , i));
 });
 cartClick.forEach((item, index) => {
-  item.addEventListener("click", () => addtoCart(ProductData[index]));
+  item.addEventListener("click", () => addtoCart(filteredData[index]));
 });
 
 cartIncrement.forEach((item, index)=>{
-  item.addEventListener("click", () => inCrementClick(ProductData[index], index));
+  item.addEventListener("click", () => inCrementClick(filteredData[index], index,ProductData));
 })
 cartIncrement2.forEach((item, index)=>{
-    item.addEventListener("click", () => inCrementClick(ProductData[index], index));
+    item.addEventListener("click", () => inCrementClick(filteredData[index], index));
   })
 cartDecrement.forEach((item, index)=>{
-    item.addEventListener("click", () => decrementClick(ProductData[index], index));
+    item.addEventListener("click", () => decrementClick(filteredData[index], index));
   })
 
   cartInput.forEach((item, index) => {
     item.addEventListener("change", (e) => {
       console.log("Change detected on index:", index,e.target.value);
-       inCrementClickOnchange(ProductData[index], index);
+       inCrementClickOnchange(filteredData[index], index);
     });
   });
 }
@@ -299,6 +298,7 @@ renderProducts(ProductData);
     const filteredProducts = ProductData.filter((item) =>
       item.productname.toLowerCase().includes(query)
     );
+    console.log(filteredProducts,"filteredProducts")
     renderProducts(filteredProducts);
   });
 
@@ -718,35 +718,80 @@ window.viewSpecificCartSS = function (gotdata, index) {
 
     // Generate table headers and rows
     let tableHeaders = Object.keys(data[0]);
+    if(tableHeaders.includes("GST")){
+      tableHeaders.push("Rate (Excl. GST)")
+      tableHeaders.push("Rate (Incl. GST)")
+
+    }
+    console.log(tableHeaders,"tableHeaders")
+
     // gotdata.cartstage === "S" && tableHeaders.push("Action")
     console.log(gotdata,"dcbdgcvdgcvdgcvgdcvgdcvgdc")
-    let tableBodyRows = data.map((item) => {
-        return `<tr>${tableHeaders
-          .map((key) => {
-            if (key === "qty" && gotdata.cartstage =="S" ) {
-              return `
-                <td>
-                  <fieldset class="qty-box">
-                    <div class="input-group bootstrap-touchspin">
-                      <button class="btn btn-primary btn-square bootstrap-touchspin-down cartPageMinus" type="button">
-                        <i class="fa-solid fa-minus"></i>
-                      </button>
-                      <span class="input-group-text bootstrap-touchspin-prefix" style="display: none;"></span>
-                      <input class="touchspin text-center form-control cartPageInput" type="text" value="${item[key] ?? 1}" style="display: block;">
-                      <span class="input-group-text bootstrap-touchspin-postfix" style="display: none;"></span>
-                      <button class="btn btn-primary btn-square bootstrap-touchspin-up cartPagePlus" type="button">
-                        <i class="fa-solid fa-plus"></i>
-                      </button>
-                    </div>
-                  </fieldset>
-                </td>`;
-            } else {
-              return `<td>${item[key] ?? ""}</td>`; // Handle undefined/null values safely
-            }
-          })
-          .join("")}
-          </tr>`;
-      });
+// Initialize total counters
+let totalBaseRate = 0;
+let totalRateWithGst = 0;
+
+let tableBodyRows = data.map((item) => {
+  let baseRate = parseFloat(item["Rate"]) * parseFloat(item["Quantity"]) || 0; // Ensure it's a number
+  let gst = item["GST"] ? parseFloat(String(item["GST"]).replace("%", "")) : 0; // Handle % if string
+  let rateWithGst = baseRate * (1 + gst / 100);
+
+  // Accumulate totals
+  totalBaseRate += baseRate;
+  totalRateWithGst += rateWithGst;
+
+  return `<tr>${tableHeaders
+    .map((key) => {
+      if (key === "qty" && gotdata.cartstage == "S") {
+        return `
+          <td>
+            <fieldset class="qty-box">
+              <div class="input-group bootstrap-touchspin">
+                <button class="btn btn-primary btn-square bootstrap-touchspin-down cartPageMinus" type="button">
+                  <i class="fa-solid fa-minus"></i>
+                </button>
+                <span class="input-group-text bootstrap-touchspin-prefix" style="display: none;"></span>
+                <input class="touchspin text-center form-control cartPageInput" type="text" value="${item[key] ?? 1}" style="display: block;">
+                <span class="input-group-text bootstrap-touchspin-postfix" style="display: none;"></span>
+                <button class="btn btn-primary btn-square bootstrap-touchspin-up cartPagePlus" type="button">
+                  <i class="fa-solid fa-plus"></i>
+                </button>
+              </div>
+            </fieldset>
+          </td>`;
+      } else if (key === "Rate (Incl. GST)") {
+        return `<td>${rateWithGst.toFixed(2)}</td>`; // Format to 2 decimal places
+      }else if (key === "Rate (Excl. GST)") {
+        return `<td>${baseRate.toFixed(2)}</td>`; // Format to 2 decimal places
+      } else {
+        return `<td>${item[key] ?? ""}</td>`; // Handle undefined/null values safely
+      }
+    })
+    .join("")}
+    </tr>`;
+});
+
+// Add Total Row at the End
+let totalRow = `<tr>
+  ${tableHeaders
+    .map((key) => {
+      if (key === "Rate (Excl. GST)") {
+        return `<td><strong>Total: Rs. ${totalBaseRate.toFixed(2)}</strong></td>`;
+      } else if (key === "Rate (Incl. GST)") {
+        return `<td><strong>Total: Rs. ${totalRateWithGst.toFixed(2)}</strong></td>`;
+      } else {
+        return `<td></td>`; // Empty for other columns
+      }
+    })
+    .join("")}
+  </tr>`;
+
+// Append Total Row to the Table
+tableBodyRows.push(totalRow);
+
+console.log(tableBodyRows, "Generated Table Rows with Totals");
+
+    
 
 
     // Append the cart table to the page
