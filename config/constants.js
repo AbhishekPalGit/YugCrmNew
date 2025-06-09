@@ -12,20 +12,6 @@ module.exports = {
     },
     'TokenSecret':'wmVeMGCQBCfhMe2iC0Jkgw==', // paras
     'currentDateTime' : dformat,
-    "allergen" : {
-        "1" : "Milk",
-        "2" : "Wheat",
-        "3" : "Soy",
-        "4" : "Egg",
-        "5" : "Peanut",
-        "6" : "Treenut",
-        "7" : "Fish",
-        "8" : "Shellfish",
-        "9" : "Gluten",
-        "10": "Sesame",
-        "11": "Mustard",
-        "12": "Other",
-    },
     // "zeptoMailConfig" : {
     //     "kylium"
     //     "host": "smtp.zeptomail.in",
@@ -62,4 +48,16 @@ module.exports = {
             'roleId' : 4,
         },
     },
+    "statusMap" : {
+      "CartStatus": {
+        "A": "Approved",
+        "S": "Submitted",
+        "R": "Rejected"
+      },
+      "OrderStatus": {
+        "A": "Approved",
+        "P": "Pending",
+        "R": "Rejected"
+      }
+    }
 };

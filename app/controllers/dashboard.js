@@ -327,3 +327,65 @@ exports.getHODashboard = async (req, res) => {
         res.status(200).json(result);
     }
 }
+
+exports.superAdminDashboard = async (req, res) => {
+    let body = req.body;
+    var result = {
+        'status': "failed",
+        'message': 'Something Went Wrong.',
+        'data' : ""
+    }
+    try {
+        if (Object.keys(body).length == 0) {
+            result.message = 'Please Prvoide Required Details.';
+        } else if (body.api_name == "" || body.api_name == undefined || body.api_name != "superAdminDashboard") {
+            result.message = 'Invlaid API';
+        } else {
+            var users = await userModel.login(body);
+            body.roleId = users.data[0]['roleId'];
+            body.companyId = users.data[0]['companyId'];
+            body.siteId = users.data[0]['siteId'];
+            
+            users.roleId = 1;
+
+            if (users.roleId == 1) {
+                var dashDet = await dashboardModel.superAdminDashboard(body);
+                if (dashDet.status == "success") {
+                    if (dashDet.data.length > 0) {
+                        const statusMap = constants.statusMap;
+                        const updatedData = dashDet.data.map(entry => ({
+                          ...entry,
+                          "CartStatus": statusMap.CartStatus[entry.CartStatus] || entry.CartStatus,
+                          "OrderStatus": statusMap.OrderStatus[entry.OrderStatus] || entry.OrderStatus,
+                          "POLink": entry.POLink ? `${req.protocol}://${req.get('host')}${entry.POLink}` : ''
+                        }));
+
+                        result = {
+                            'status': "success",
+                            'message': 'Data Found Successfully',
+                            'data' : updatedData
+                        }
+                    } else {
+                        result.message = 'No Data Found';
+                    }
+                } else {
+                    result.message = dashDet.data;
+                }
+            } else {
+                result = {
+                    "status": "failed",
+                    "message": "You are not Super Admin user. Logout",
+                    "data": "",
+                }
+            }
+        }
+        res.status(200).json(result);
+    } catch (err) {
+        result = {
+            "status": "failed",
+            "message": err,
+            "data": "",
+        }
+        res.status(200).json(result);
+    }
+}

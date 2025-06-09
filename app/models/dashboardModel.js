@@ -183,3 +183,55 @@ exports.getHODashboard = async function(post) {
     }
     return result;
 }
+
+exports.superAdminDashboard = async function(post) {
+    var result = {
+        'status': "failed",
+        'data': "Something went wrong. Please try again later"
+    }
+    try {
+        let getData = await database.query(`
+            SELECT
+                userM.usrid AS UserId,
+                userM.fname AS FirstName,
+                userM.lname AS LastName,
+                userM.emailid AS emailid,
+                role.rolename AS RoleName,
+                role.rolecode AS RoleCode,
+                cart.cartid,
+                cart.cartstage AS CartStatus,
+                site.csid,
+                site.csname AS siteName,
+                company.ccid AS companyId,
+                company.ccname AS companyName,
+                ord.ordid AS OrderId,
+                ord.ordcode AS OrderCode,
+                ord.ordstatus AS OrderStatus,
+                ord.po_no AS PONumber,
+                ord.po_doc_link AS POLink
+            FROM
+                cartmaster as cart
+                INNER JOIN constsitemaster AS site ON cart.csid = site.csid
+                INNER JOIN constcompmaster AS company ON site.ccid = company.ccid
+                LEFT JOIN ordermaster AS ord ON cart.cartid = ord.cartid
+                INNER JOIN usermaster AS userM ON ord.usrid = userM.usrid
+                INNER JOIN rolemaster AS role ON userM.roleid = role.roleid
+            WHERE
+                cart.isactive = 1
+                AND site.isactive = 1
+                AND company.isactive = 1
+                AND ord.isactive = 1
+                AND userM.isactive = 1
+                AND ord.isactive = 1;
+        ` , {}, {
+            type: Sequelize.QueryTypes.SELECT,
+        });
+        result = {
+            'status': "success",
+            'data': getData[0]
+        }
+    } catch (error) {
+        result.data = error;
+    }
+    return result;
+}

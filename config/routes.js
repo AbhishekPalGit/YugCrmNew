@@ -54,6 +54,7 @@ module.exports = function (app) {
 	app.post('/crm/api/v1/dashboard/getSSDashboard', middlware, dashboardCtrl.getSSDashboard);
 	app.post('/crm/api/v1/dashboard/getPMDashboard', middlware, dashboardCtrl.getPMDashboard);
 	app.post('/crm/api/v1/dashboard/getHODashboard', middlware, dashboardCtrl.getHODashboard);
+	app.post('/crm/api/v1/dashboard/superAdminDashboard', middlware, dashboardCtrl.superAdminDashboard);
 
 
 	// front route *********************************
