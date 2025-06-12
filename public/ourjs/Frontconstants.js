@@ -46,6 +46,10 @@ export const Frontconstants ={
 
 
     },
+    'All Orders':{
+      getApiUrl: curUrl + 'dashboard/superAdminDashboard',
+      getApiName: "superAdminDashboard"
+    },
     "pendingCart":{
       getApiUrl: curUrl + 'product/getCartDetail',
       getApiName: "getCartDetail",
@@ -127,8 +131,25 @@ export const Frontconstants ={
           "uom": "Units",
           "uomprice": "Rate",
           "CPN": "CPN",
+
+          "FirstName": "FirstName",
+            "LastName": "LastName",
+            "emailid": "emailid",
+            "RoleName": "RoleName",
+            "RoleCode": "RoleCode",
+            "cartid": "cartid",
+            "CartStatus": "CartStatus",
+            "csid": 'csid',
+            "siteName": "siteName",
+            "companyId": "companyId",
+            "companyName": "companyName",
+            "OrderId": "OrderId",
+            "OrderCode": "OrderCode",
+            "OrderStatus": "OrderStatus",
+            "PONumber": "PONumber",
       },
-    }
+    },
+    
 }
 
 export const InputObj = {
@@ -311,8 +332,8 @@ export const InputObj = {
   };
 
 export const UserMenus ={
-        SA :["company","site","users","product"],
-        ADM :["company","site","users","product"],
+        SA :["company","site","users","product","All Orders"],
+        ADM :["company","site","users","product","All Orders"],
         SS :["Dashboard", "Raise Cart", "Cart"],
         PM :["Dashboard"],
         HO:["Dashboard"],

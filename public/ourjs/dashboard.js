@@ -232,6 +232,7 @@ const bulkUploadHandler= async(selectedTab, payloadArr)=>{
 
 /// getItem
 async function getProduct(tabName) {
+  console.log("tabbbbname", tabName)
   const payload = {
     api_name: Frontconstants[tabName].getApiName,
   };
@@ -360,10 +361,10 @@ async function getProduct(tabName) {
                 <th> <span class="f-light f-w-800">Action</span></th>
             `;
       tableBody.innerHTML = dataArr
-      .map((data) => `
+      .map((data,i) => `
       ${colArr
         .map((colData) =>
-          colData !== "ccid" 
+          colData !== "ccid" && colData !== "POLink"
             ? `<td>
                 ${
                   colData === "image"
@@ -376,14 +377,19 @@ async function getProduct(tabName) {
             : `<p></p>`
         )
         .join("")}
+        ${console.log(Apidata,"apidatatatata")}
       <td>
         <div class="product-action">
-          <svg class="EditItem" tabName=${tabName}>
+        ${tabName !== "All Orders" ?
+          `<svg class="EditItem" tabName=${tabName}>
             <use href="../assets/svg/icon-sprite.svg#edit-content"></use>
           </svg>
           <svg class="deleteItem" tabName=${tabName}>
             <use href="../assets/svg/icon-sprite.svg#trash1"></use>
-          </svg>
+          </svg>` :
+        
+          `<a href=${Apidata['data'][i]['POLink'] ? Apidata['data'][i]['POLink'] : window.location.href } target="_blank" ><button class="btn btn-success" >${Apidata['data'][i]['OrderStatus'] === "Pending" ? "Pending" : "Download"}</button></a>`
+      }
         </div>
       </td>
     </tr>
