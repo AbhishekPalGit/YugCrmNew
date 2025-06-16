@@ -640,7 +640,7 @@ export async function getHOData(data){
      <th class="sorting_disabled" rowspan="1" colspan="1" >Order Id</th>
      <th class="sorting_disabled" rowspan="1" colspan="1" >Status</th>
      <th class="sorting_disabled" rowspan="1" colspan="1" >Status</th>
-     <th class="sorting_disabled" rowspan="1" colspan="1" >Created By</th>
+     <th class="sorting_disabled" rowspan="1" colspan="1" >Approved By</th>
      <th class="sorting_disabled" rowspan="1" colspan="1" >Date</th>
      <th class="sorting_disabled" rowspan="1" colspan="1" >Site Name</th>
      <th class="text-center sorting_disabled" rowspan="1" colspan="1" >View</th>
