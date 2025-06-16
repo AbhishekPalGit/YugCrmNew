@@ -485,8 +485,6 @@ exports.approveCart = async (req, res) => {
             result.message = 'Provide valid action';
         } else if (body.cartId == "" || body.cartId == undefined) {
             result.message = 'Provide Cart Id';
-        } else if (body.items == "" || body.items == undefined || !Array.isArray(body.items) || body.items.length == 0) {
-            result.message = 'Provide Item deatils';
         } else {
             if (body.action == 'reject') {
                 var updCart = await productModel.updCartStageByCartId(body, 'R');
